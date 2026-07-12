@@ -1,0 +1,5 @@
+# ローカルの Claude Code 設定(個人環境の permission 設定等を含むため公開しない)
+.claude/
+
+# OS
+.DS_Store
