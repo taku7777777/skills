@@ -1,0 +1,12 @@
+{
+  "case_id": "ops-checkout-observability",
+  "criteria": [
+    {"id": "cuj-sli", "description": "支払い完了と注文番号取得をCUJにし、good/valid event、測定点、latency/quality SLIを定義する", "critical": false},
+    {"id": "slo-policy", "description": "現状測定からSLO候補とwindowを出し、100%を置かずerror budget policyを合意事項として残す", "critical": false},
+    {"id": "burn-alerts", "description": "1分5xx閾値をmulti-window burn-rateへ置き換え、page/ticket/dashboardを行動可能性で分ける", "critical": true},
+    {"id": "privacy", "description": "body、住所、メール、カード情報を既定除外し、allowlist、mask/tokenize、90日以下保持、RBAC、監査を設計する", "critical": true},
+    {"id": "tracing", "description": "決済事業者までtrace contextを伝播し、metric→trace→sanitized wide eventの導線を作る", "critical": false},
+    {"id": "runbook", "description": "症状、read-only診断、期待出力、承認が必要な緩和、rollback/escalationを持つランブックを設計する", "critical": false},
+    {"id": "incident-process", "description": "IC、作業者、記録、更新間隔、重複再起動を防ぐ単一指揮系統を定義する", "critical": true}
+  ]
+}

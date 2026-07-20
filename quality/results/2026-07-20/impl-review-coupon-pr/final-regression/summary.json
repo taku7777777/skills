@@ -1,0 +1,32 @@
+{
+  "scope": "same-scenario regression check of the final bounded fast-path candidate",
+  "held_out_claim": false,
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "max",
+  "runs": 3,
+  "blind_mean_pass_rate": 1.0,
+  "critical_failures": 0,
+  "mean_tokens": 88963.33333333333,
+  "mean_latency_ms": 255101.33333333334,
+  "cost_usd": null,
+  "tool_errors": 0,
+  "environment_errors": 3,
+  "per_run": [
+    {"run": 1, "pass_rate": 1.0, "tokens": 71193, "latency_ms": 188072, "tool_errors": 0, "environment_errors": 1},
+    {"run": 2, "pass_rate": 1.0, "tokens": 97350, "latency_ms": 274740, "tool_errors": 0, "environment_errors": 0},
+    {"run": 3, "pass_rate": 1.0, "tokens": 98347, "latency_ms": 302492, "tool_errors": 0, "environment_errors": 2}
+  ],
+  "comparison_to_initial_with_skill": {
+    "pass_rate_delta": 0.1428571428571429,
+    "token_overhead_ratio": 1.28902476720374,
+    "latency_overhead_ratio": 1.8674468599092757,
+    "tool_error_delta": 0
+  },
+  "comparison_to_unbounded_post_fix": {
+    "token_reduction_ratio": 0.6600928443615199,
+    "latency_reduction_ratio": 0.33059496527474064,
+    "tool_error_reduction": 5
+  },
+  "decision": "accept-as-regression-fix",
+  "decision_reason": "All three blind judgments passed every criterion, critical failures stayed at zero, and executor tool errors returned to zero. The same scenario is no longer held out, so repository-wide adoption still requires fresh scenarios and routing evaluation."
+}

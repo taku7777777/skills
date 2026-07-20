@@ -1,0 +1,1 @@
+{"criteria":{"verdict":true,"ownership":true,"negative-total":true,"money-type":true,"outside-diff":true,"evidence":true,"no-edit":true},"notes":"全criterionがpasses要件を満たしています。判定は冒頭でescalateと明示され、所有者未照合、負額、浮動小数点、競合・差分外契約について具体的な失敗シナリオとコード根拠が示されています。"}

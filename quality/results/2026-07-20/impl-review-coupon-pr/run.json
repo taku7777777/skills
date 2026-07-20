@@ -1,0 +1,43 @@
+{
+  "protocol_version": 1,
+  "date": "2026-07-20",
+  "case_id": "impl-review-coupon-pr",
+  "scope": "single-scenario pilot",
+  "executor": {
+    "product": "OpenAI Codex CLI",
+    "version": "0.144.6",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "max",
+    "sandbox": "read-only",
+    "ephemeral": true,
+    "user_config": "ignored"
+  },
+  "conditions": {
+    "baseline": "No repository skill was installed or exposed.",
+    "with-skill": "Only the snapshotted impl-review skill was installed and explicitly invoked with $impl-review."
+  },
+  "isolation": {
+    "executor": "Each run used a fresh workspace containing only task.md, plus the target skill for with-skill runs. Rubric, evals.md, repository, and prior outputs were not exposed.",
+    "grader": "Each candidate was scored in a separate fresh session. Graders saw only task.md, rubric.json, candidate.md, and the output schema; condition aliases were hidden until all judgments completed."
+  },
+  "artifacts": {
+    "task_snapshot": "task.md",
+    "rubric_snapshot": "rubric.json",
+    "responses": "responses/",
+    "judgments": "judgments/",
+    "evaluated_skill_snapshot": "skill-snapshot/",
+    "scores": "scores.jsonl"
+  },
+  "measurement": {
+    "tokens": "Executor input tokens plus output tokens; cached input is retained separately in scores.jsonl notes.",
+    "latency": "Wall-clock milliseconds captured by the execution harness; the final run is rounded to the nearest 100 ms.",
+    "cost_usd": null,
+    "cost_note": "The provider did not expose a monetary charge for these runs, so no estimate or zero placeholder was used.",
+    "tool_errors": "Managed hook-trust warnings were execution-environment warnings and were not counted as executor tool errors."
+  },
+  "limitations": [
+    "This pilot measures task quality for one explicitly invoked skill scenario, not automatic routing quality.",
+    "Three repetitions detect gross regressions but do not establish statistical significance.",
+    "The repository-wide 18-case suite is incomplete, so this result cannot make adoption_ready true."
+  ]
+}

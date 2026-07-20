@@ -1,0 +1,4 @@
+interface:
+  display_name: "Quarterly Strategy Review"
+  short_description: "Reassess forecasts and strategy using evidence and falsification"
+  default_prompt: "Use $quarterly-strategy-review to update this forecast and strategy with current evidence."

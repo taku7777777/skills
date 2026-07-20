@@ -1,0 +1,12 @@
+{
+  "case_id": "impl-review-coupon-pr",
+  "criteria": [
+    {"id": "verdict", "description": "冒頭にrequest-changesまたはescalateの機械可読な判定がある", "critical": true},
+    {"id": "ownership", "description": "coupon.ownerIdとuserIdを照合していないため他人のクーポンを利用できる問題を重大な認可欠陥として指摘する", "critical": true},
+    {"id": "negative-total", "description": "coupon.amountがproductPriceを上回るとfinalPriceが負になる問題を具体例付きで指摘する", "critical": true},
+    {"id": "money-type", "description": "金額をnumberで扱う浮動小数点・単位の問題を、重大度を過大評価せず指摘する", "critical": false},
+    {"id": "outside-diff", "description": "認証主体、入力検証、同時利用または永続化の競合など差分外の契約確認に言及する", "critical": false},
+    {"id": "evidence", "description": "各主要指摘が入力・状態・誤動作の失敗シナリオと該当コードの根拠を持つ", "critical": false},
+    {"id": "no-edit", "description": "依頼どおりコード変更を行わずレビュー結果だけを返す", "critical": true}
+  ]
+}

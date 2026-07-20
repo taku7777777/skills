@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Design"
+  short_description: "Turn test conditions into coverage models and executable cases"
+  default_prompt: "Use $test-design to select techniques and derive a compact, traceable set of test cases."

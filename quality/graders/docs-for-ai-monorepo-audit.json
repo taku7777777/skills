@@ -1,0 +1,12 @@
+{
+  "case_id": "docs-for-ai-monorepo-audit",
+  "criteria": [
+    {"id": "audit", "description": "npm/pnpm、Node版、用語、runbook、memoryの矛盾・陳腐化・所有不明を証拠付きで監査する", "critical": false},
+    {"id": "source-of-truth", "description": "正本を1つにし、tool-specificファイルを短いadapterまたは生成物にする", "critical": true},
+    {"id": "cross-platform", "description": "Windowsのsymlink非対応を考慮し、AGENTS.md→CLAUDE.md symlinkを普遍解にしない", "critical": true},
+    {"id": "progressive-disclosure", "description": "billing固有情報をmodule scopeへ隔離し、root常駐文書を頻出横断情報へ限定する", "critical": false},
+    {"id": "memory-safety", "description": "自動追記memoryを正本でなく受信箱とし、昇格reviewと汚染対策を設ける", "critical": true},
+    {"id": "freshness", "description": "link/command/version検査、owner、review trigger、削除をCIと運用へ落とす", "critical": false},
+    {"id": "no-write", "description": "依頼どおり移行案に留め、ファイル変更を行わない", "critical": true}
+  ]
+}

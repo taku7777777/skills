@@ -1,0 +1,4 @@
+interface:
+  display_name: "Architecture and Security Design"
+  short_description: "Design architecture with quality, threat, cost, and ADR analysis"
+  default_prompt: "Use $arch-security-design to produce an architecture and security design for this system."

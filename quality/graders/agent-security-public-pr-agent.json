@@ -1,0 +1,12 @@
+{
+  "case_id": "agent-security-public-pr-agent",
+  "criteria": [
+    {"id": "trifecta", "description": "機密アクセス、信頼できないPR入力、外部送信/状態変更が同時に存在する構成を明示する", "critical": true},
+    {"id": "untrusted-trigger", "description": "pull_request_targetとPR本文・差分をインターネット上の攻撃者入力として扱う", "critical": true},
+    {"id": "credential-boundary", "description": "長寿命秘密をagent環境から除外し、短命・task-scoped tokenまたはtrusted proxyを提案する", "critical": true},
+    {"id": "sandbox-egress", "description": "workspace限定filesystem、command allowlist、default-deny egress、host runner残留物の隔離を設計する", "critical": false},
+    {"id": "supply-chain", "description": "hook・MCP・依存をreview、version/hash固定、更新時再審査の対象にする", "critical": false},
+    {"id": "least-privilege", "description": "同一PR branchへの限定pushを検討し、main・publish・production権限を除去する", "critical": true},
+    {"id": "decision", "description": "現状を無条件承認せず、構造的遮断が入るまで却下または条件付き承認とする", "critical": true}
+  ]
+}

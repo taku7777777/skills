@@ -1,0 +1,12 @@
+{
+  "case_id": "skill-improvement-commit-message",
+  "criteria": [
+    {"id": "eval-first", "description": "本文追記より先にbaselineと評価ケースを作る", "critical": true},
+    {"id": "trigger-cases", "description": "日本語と英語の自然な発火例、隣接領域の非発火例を含むルーティング評価を設計する", "critical": false},
+    {"id": "task-cases", "description": "リファクタと挙動変更が混在するraw diffを用いた中心・境界・暗黙依頼の評価を設計する", "critical": false},
+    {"id": "isolation", "description": "実行エージェントから期待答えと採点基準を隔離する", "critical": true},
+    {"id": "repetition", "description": "baseline/with-skillを複数回実行しモデル・条件・費用を記録する", "critical": false},
+    {"id": "strict-decision", "description": "重要項目の悪化なしで改善した場合だけ採用する条件を示す", "critical": true},
+    {"id": "minimal-edit", "description": "観測された不発火と曖昧な出力に限定した最小編集候補を示す", "critical": false}
+  ]
+}

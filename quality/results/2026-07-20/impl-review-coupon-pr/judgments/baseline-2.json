@@ -1,0 +1,1 @@
+{"criteria":{"verdict":false,"ownership":true,"negative-total":true,"money-type":false,"outside-diff":true,"evidence":true,"no-edit":true},"notes":"冒頭は「マージ不可」だが、指定の機械可読な request-changes / escalate 判定ではない。所有者照合欠落、負額の具体例、競合、各主要指摘のコード根拠と失敗シナリオは明確。numberによる浮動小数点・金額単位の問題には言及していない。コード変更は行っていない。"}

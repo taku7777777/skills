@@ -1,0 +1,12 @@
+{
+  "case_id": "ddd-subscription-change",
+  "criteria": [
+    {"id": "language", "description": "契約、変更要求、credit、請求、権限反映等の用語と未決語を整理する", "critical": false},
+    {"id": "contexts", "description": "契約管理、Pricing、Payment、Entitlementの境界と関係を示す", "critical": false},
+    {"id": "aggregate-invariants", "description": "Subscription/ChangeRequest等の集約境界と、idempotency・請求成功前にプランを変えない不変条件を特定する", "critical": true},
+    {"id": "value-objects", "description": "Money/Credit/Period等を不変条件に基づきVO化し、DTO末端まで機械的にクラス化しない", "critical": false},
+    {"id": "process", "description": "Payment成功後のEntitlement失敗、retry/timeout/補償を追跡する長期プロセスの要否を理由付きで判断する", "critical": true},
+    {"id": "admin-audit", "description": "管理者例外を通常不変条件の抜け道にせず、理由・実行者・監査イベントを設計する", "critical": true},
+    {"id": "scope", "description": "依頼どおり設計成果物を提示し、コードやリポジトリ変更を行わない", "critical": true}
+  ]
+}

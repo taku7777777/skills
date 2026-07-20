@@ -2,6 +2,8 @@
 
 スキルの効果を測定するための評価定義。運用方法は skill-improvement スキルの references/eval-template.md を参照(本スキル自身への自己適用)。
 
+S1の実行可能な架空スキルfixtureとhidden rubricはリポジトリレベルの [task manifest](../quality/tasks/cases.jsonl) に登録済み。実行時は `scripts/eval_tasks.py prepare` で分離パケットを生成する。
+
 ## 発火テスト
 
 ### 発火すべきプロンプト
@@ -25,7 +27,7 @@
 ## 検証シナリオ
 
 ### S1: 既存スキルへの評価整備(モードB)
-- **タスク**: 「`commit-message` という架空のスキル(コミットメッセージ規約を提供。SKILL.md 本文を添付)に評価を整備して」と依頼する。
+- **タスク**: `quality/fixtures/skill-improvement/commit-message-skill.md` をraw artifactとして添付し、「このスキルに評価を整備して」と依頼する。期待する欠落・rubricはexecutorへ渡さない。
 - **スキルなしで予想される欠落**: 発火テストという概念自体の欠落(検証シナリオのみ作る)、baseline 測定の手順の欠落、トリガー例をそのまま評価プロンプトに流用する自己言及的な評価。
 - **合格条件**:
   - [ ] evals.md がテンプレート3部構成(発火テスト/検証シナリオ/実行記録)で出力される

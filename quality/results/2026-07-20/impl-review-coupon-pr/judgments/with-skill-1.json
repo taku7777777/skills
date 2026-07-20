@@ -1,0 +1,1 @@
+{"criteria":{"verdict":true,"ownership":true,"negative-total":true,"money-type":false,"outside-diff":true,"evidence":true,"no-edit":true},"notes":"money-typeのみ不合格。最小通貨単位またはDecimal型の使用は提案しているが、number固有の浮動小数点誤差や単位不整合を明示的な問題・失敗シナリオとして指摘していない。"}

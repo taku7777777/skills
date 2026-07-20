@@ -45,7 +45,7 @@ Diátaxis(Daniele Procida)、Docs as Code、『Software Engineering at Google』
 
 使い分けの基準: **常駐(毎回読む)= CLAUDE.md / オンデマンドの手順 = スキル / オンデマンドの知識 = docs/ 配下+参照導線 / セッション由来の暫定知識 = メモリ(昇格待ちの受信箱)/ リポジトリ外・動的な知識 = MCPリソース**。CLAUDE.md の詳細な設計基準(載せる/載せないの判断、分量の目安、モノレポでの階層化、リンクの作法)は `references/claude-md-and-audit.md` の設計ガイドに従う。
 
-複数のコーディングエージェントを併用するチームでは **AGENTS.md を正とし CLAUDE.md をシンボリックリンクにする**(ツール横断標準)。公開プロダクトのドキュメントには **llms.txt / llms-full.txt** を用意し、外部のAIからの参照経路も設計する。
+複数のコーディングエージェントを併用するチームでは、各ツールの探索順・上書き規則・シンボリックリンク対応(OSとGit設定を含む)を確認し、**正本を1つにする**。AGENTS.mdを正本にしてCLAUDE.mdをリンクする方法は候補の1つであり、リンク非対応環境では生成同期または短いtool-specific adapterを使う。公開プロダクトの **llms.txt / llms-full.txt** は、実際の利用者・クローラ・保守責任者を特定できる場合に採用し、既存サイトマップやAPI文書との二重管理を避ける。
 
 ### ステップ3: 執筆
 
@@ -101,4 +101,4 @@ Diátaxis(Daniele Procida)、Docs as Code、『Software Engineering at Google』
 
 ## 知見の出典
 
-Diátaxis Framework(Daniele Procida)/ 『Software Engineering at Google』ドキュメンテーション章 / Docs as Code(Write the Docs コミュニティ / Anne Gentle『Docs Like Code』)/ David Parnas(情報隠蔽のコンテキスト適用)/ Anthropic(CLAUDE.md ベストプラクティス、コンテキストエンジニアリング)/ AGENTS.md(ツール横断標準)/ llms.txt(Jeremy Howard)
+Diátaxis Framework(Daniele Procida)/ 『Software Engineering at Google』ドキュメンテーション章 / Docs as Code(Write the Docs コミュニティ / Anne Gentle『Docs Like Code』)/ David Parnas(情報隠蔽のコンテキスト適用)/ Anthropic(CLAUDE.md ベストプラクティス、コンテキストエンジニアリング)/ [AGENTS.md](https://agents.md/)(ツール横断の提案。対象ツールの実装を別途確認)/ [llms.txt](https://llmstxt.org/)(提案仕様。採用価値を個別判断)

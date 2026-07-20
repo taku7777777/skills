@@ -1,0 +1,4 @@
+interface:
+  display_name: "Operations and Observability"
+  short_description: "Design SLOs, telemetry, alerts, runbooks, and incident response"
+  default_prompt: "Use $ops-observability to design the SLOs, telemetry, alerts, and runbooks for this service."

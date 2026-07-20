@@ -1,0 +1,4 @@
+interface:
+  display_name: "Refactoring Strategy"
+  short_description: "Plan reversible modernization and dependency migrations"
+  default_prompt: "Use $refactoring-strategy to create a staged and reversible improvement plan for this codebase."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI-Adaptable Testing"
+  short_description: "Build tests and quality gates resilient to AI-authored changes"
+  default_prompt: "Use $ai-adaptable-testing to assess and strengthen this test suite for AI-assisted development."

@@ -1,0 +1,5 @@
+# Unified-diff fixtures require a one-space prefix on blank context lines.
+quality/fixtures/**/*.diff -whitespace
+
+# Evaluation responses and task snapshots are immutable raw evidence.
+quality/results/** -whitespace

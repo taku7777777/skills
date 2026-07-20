@@ -1,0 +1,1 @@
+{"criteria":{"verdict":false,"ownership":true,"negative-total":true,"money-type":false,"outside-diff":true,"evidence":true,"no-edit":true},"notes":"所有者照合、負額の具体例、同時利用競合、入力検証、およびコード根拠付き失敗シナリオは満たす。コード変更もない。一方、冒頭に機械可読な「request-changes」または「escalate」がなく、numberによる浮動小数点・金額単位の問題にも言及していない。"}

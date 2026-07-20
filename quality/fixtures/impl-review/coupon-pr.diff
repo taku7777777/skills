@@ -1,0 +1,118 @@
+diff --git a/src/coupons/CouponRepository.ts b/src/coupons/CouponRepository.ts
+new file mode 100644
+index 0000000..5f1311a
+--- /dev/null
++++ b/src/coupons/CouponRepository.ts
+@@ -0,0 +1,12 @@
++export type Coupon = {
++  id: string;
++  ownerId: string;
++  amount: number;
++  expiresAt: Date;
++  usedAt?: Date;
++};
++
++export interface CouponRepository {
++  findById(id: string): Promise<Coupon | undefined>;
++  save(coupon: Coupon): Promise<void>;
++}
+diff --git a/src/coupons/CouponService.ts b/src/coupons/CouponService.ts
+new file mode 100644
+index 0000000..94b14fc
+--- /dev/null
++++ b/src/coupons/CouponService.ts
+@@ -0,0 +1,41 @@
++import { CouponRepository } from "./CouponRepository";
++
++export type DiscountResult = {
++  couponId: string;
++  originalPrice: number;
++  finalPrice: number;
++  discount: number;
++};
++
++export class CouponService {
++  constructor(private readonly coupons: CouponRepository) {}
++
++  async applyCoupon(
++    userId: string,
++    productPrice: number,
++    couponId: string,
++    now = new Date(),
++  ): Promise<DiscountResult> {
++    const coupon = await this.coupons.findById(couponId);
++    if (!coupon) {
++      throw new Error("coupon not found");
++    }
++    if (coupon.usedAt) {
++      throw new Error("coupon already used");
++    }
++    if (coupon.expiresAt < now) {
++      throw new Error("coupon expired");
++    }
++
++    const finalPrice = Math.round((productPrice - coupon.amount) * 100) / 100;
++    coupon.usedAt = now;
++    await this.coupons.save(coupon);
++
++    return {
++      couponId,
++      originalPrice: productPrice,
++      finalPrice,
++      discount: coupon.amount,
++    };
++  }
++}
+diff --git a/src/http/CouponController.ts b/src/http/CouponController.ts
+index 00aa551..242af61 100644
+--- a/src/http/CouponController.ts
++++ b/src/http/CouponController.ts
+@@ -1,9 +1,16 @@
+ import { Request, Response } from "express";
++import { CouponService } from "../coupons/CouponService";
+ 
+ export class CouponController {
+-  constructor() {}
++  constructor(private readonly service: CouponService) {}
+ 
+-  async apply(_req: Request, res: Response): Promise<void> {
+-    res.status(501).json({ error: "not implemented" });
++  async apply(req: Request, res: Response): Promise<void> {
++    const userId = req.user.id;
++    const result = await this.service.applyCoupon(
++      userId,
++      Number(req.body.productPrice),
++      req.params.couponId,
++    );
++    res.status(200).json(result);
+   }
+ }
+diff --git a/src/coupons/CouponService.test.ts b/src/coupons/CouponService.test.ts
+new file mode 100644
+index 0000000..b8ff3bb
+--- /dev/null
++++ b/src/coupons/CouponService.test.ts
+@@ -0,0 +1,23 @@
++import { CouponService } from "./CouponService";
++
++it("applies a coupon", async () => {
++  const repository = {
++    findById: async () => ({
++      id: "coupon-1",
++      ownerId: "user-1",
++      amount: 300,
++      expiresAt: new Date("2030-01-01T00:00:00Z"),
++    }),
++    save: async () => undefined,
++  };
++  const service = new CouponService(repository);
++
++  await expect(
++    service.applyCoupon("user-1", 1000, "coupon-1", new Date("2029-01-01T00:00:00Z")),
++  ).resolves.toEqual({
++    couponId: "coupon-1",
++    originalPrice: 1000,
++    finalPrice: 700,
++    discount: 300,
++  });
++});

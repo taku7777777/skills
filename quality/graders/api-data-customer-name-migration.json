@@ -1,0 +1,12 @@
+{
+  "case_id": "api-data-customer-name-migration",
+  "criteria": [
+    {"id": "breaking-change", "description": "full_name削除とDB rename/dropの同時実施を後方非互換と判定する", "critical": true},
+    {"id": "semantic-gap", "description": "18%の名前を空白分割できず、first/lastモデル自体に未決事項があると指摘する", "critical": true},
+    {"id": "expand", "description": "新カラム追加と新APIフィールド追加を先行し、旧契約を残すexpand段階を設計する", "critical": false},
+    {"id": "dual-path", "description": "移行中のdual write/read互換、idempotent backfill、照合と失敗再実行を設計する", "critical": false},
+    {"id": "coexistence", "description": "旧アプリ30分共存とアプリのみrollbackしても旧schemaで動くことを検証する", "critical": true},
+    {"id": "consumer-migration", "description": "利用ログで外部利用者の移行完了を測り、deprecation期限とcontract段階を定義する", "critical": false},
+    {"id": "concurrency", "description": "If-Matchを維持し、backfillと本人更新の競合・上書きを防ぐ", "critical": false}
+  ]
+}
