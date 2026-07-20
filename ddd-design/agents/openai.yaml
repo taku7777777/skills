@@ -1,0 +1,4 @@
+interface:
+  display_name: "Domain-Driven Design"
+  short_description: "Model complex domains and enforce business invariants"
+  default_prompt: "Use $ddd-design to model this domain and derive an implementation aligned with its invariants."

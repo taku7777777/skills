@@ -1,0 +1,4 @@
+interface:
+  display_name: "Implementation Review"
+  short_description: "Review changes for design, correctness, security, and tests"
+  default_prompt: "Use $impl-review to review this change and return an evidence-backed merge decision."

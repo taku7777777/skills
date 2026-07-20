@@ -70,7 +70,38 @@
 
 ## 構成
 
-各スキルは `SKILL.md`(本体: 原則+ワークフロー)+ `references/`(詳細チェックリスト・テンプレート、および適用実例 `worked-example.md`)+ `evals.md`(評価セット: 発火テスト・検証シナリオ・実行記録)で構成。常時コンテキストに載るのは frontmatter の name/description のみで、SKILL.md 本文は発火時に全文ロードされる。このため SKILL.md は簡潔に保ち、詳細は必要時に references を参照する段階構成(progressive disclosure)にしている。evals.md はスキル実行時に読まれるファイルではなく、スキル自体の効果を測定するための定義(運用方法は `skill-improvement` スキル)。worked-example は「入力 → 各ステップの判断 → 成果物フォーマット準拠の完成例」を架空の題材で示す。上流4スキル(要件→設計→DDD→レビュー)の実例は経費精算SaaSの多段階承認を共通題材とし、test-analysis → test-design の実例はクーポン適用機能で成果物を引き継ぐなど、パイプラインの連続性も再現している。
+各スキルは `SKILL.md`(本体: 原則+ワークフロー)+ `references/`(詳細チェックリスト・テンプレート、および適用実例 `worked-example.md`)+ `evals.md`(評価セット: 発火テスト・検証シナリオ・実行記録)で構成。常時コンテキストに載るのは frontmatter の name/description のみで、SKILL.md 本文は発火時に全文ロードされる。このため SKILL.md は簡潔に保ち、詳細は必要時に references を参照する段階構成(progressive disclosure)にしている。evals.md は通常の発火時に自動ロードされないが、同じファイルシステムにあれば探索可能なのでhidden rubricとしては扱わない。実行用fixtureと採点rubricは `quality/` で分離し、評価時にはexecutorへtask packetだけを渡す。worked-example は「入力 → 各ステップの判断 → 成果物フォーマット準拠の完成例」を架空の題材で示す。上流4スキル(要件→設計→DDD→レビュー)の実例は経費精算SaaSの多段階承認を共通題材とし、test-analysis → test-design の実例はクーポン適用機能で成果物を引き継ぐなど、パイプラインの連続性も再現している。
+
+## 品質保証
+
+静的検証、全体ルーティング評価、baseline/with-skill比較をリポジトリ標準の品質ゲートとする。
+
+```bash
+# frontmatter、リンク、eval定義、reference構造、fixture、出典manifest
+python3 scripts/validate_skills.py
+
+# 36件の単一・複合・非発火ルーティングケースを検証
+python3 scripts/eval_routing.py --validate-only
+
+# 全18スキルのraw fixtureとhidden rubricを検証
+python3 scripts/eval_tasks.py validate
+
+# /tmp配下にexecutor用とgrader用の分離パケットを生成
+python3 scripts/eval_tasks.py prepare
+```
+
+`prepare` が出力する `run-packets/` の個別 `task.md` だけを実行エージェントへ渡す。`grader-packets/`、`manifest.json`、この開発リポジトリ、過去出力は見せない。baselineとwith-skillを同一モデル・tool policyで各3回以上実行し、`score-template` が出力するJSONLへblind採点結果・token・latency・cost・tool errorを記入して `score` で比較する。providerが実額を公開しない場合、`cost_usd` は推測値や0ではなく `null` とする。全ケースが完了し、平均品質が厳密に改善し、critical失敗とtool errorが悪化しない場合だけ `adoption_ready=true` になる。
+
+```bash
+python3 scripts/eval_tasks.py score-template --manifest <packet-dir>/manifest.json
+python3 scripts/eval_tasks.py score --manifest <packet-dir>/manifest.json --scores <scores.jsonl>
+```
+
+通常CIでは外部モデルを呼ばず、評価資産の構造と漏洩防止境界を検証する。リリース可否を判定するときは `python3 scripts/validate_skills.py --strict` を使い、全スキルの実行記録が揃っていない状態を失敗にする。2026-07-20時点では `impl-review` のS1だけbaseline/with-skill比較を実行済みで、全18 task casesのうち1件にすぎないため、リポジトリ全体の `adoption_ready` はfalseのままである。静的検証の合格や同一シナリオでの改善後回帰を、未評価シナリオへの効果の証明とはみなさない。
+
+実行結果は `quality/results/` に保存する。モデルのraw responseと評価時点のskill snapshotは再現証跡として改変せず保持するため、隔離実行に使った一時workspaceへのリンクを含むことがある。これらの生成済みMarkdownは通常ドキュメントのリンク検査対象から除外し、集計値は対応するJSON/JSONLと `evals.md` から参照する。
+
+時点依存の統計・標準・製品挙動は `quality/sources.json` で一次URL、公開日、アクセス日、見直し期限、適用範囲を管理する。安定原則はSKILL.md、変動する数値は各スキルの `references/evidence.md` に置く。
 
 ## 使い方
 

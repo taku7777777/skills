@@ -1,0 +1,1 @@
+{"criteria":{"verdict":true,"ownership":true,"negative-total":true,"money-type":true,"outside-diff":true,"evidence":true,"no-edit":true},"notes":"候補回答は、冒頭の明示的な escalate 判定、所有者認可欠如、負額となる具体例、金額の浮動小数点問題、同時利用などの差分外契約確認を含み、主要指摘にコード根拠と失敗シナリオを提示しています。コード変更も行っていません。"}

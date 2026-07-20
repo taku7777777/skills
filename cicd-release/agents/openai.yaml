@@ -1,0 +1,4 @@
+interface:
+  display_name: "CI/CD and Release"
+  short_description: "Design pipelines, rollout, rollback, and release controls"
+  default_prompt: "Use $cicd-release to design a safe delivery pipeline and rollout strategy for this service."

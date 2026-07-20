@@ -2,6 +2,8 @@
 
 スキルの効果を測定するための評価定義。運用方法は skill-improvement スキルの references/eval-template.md を参照。
 
+S1の実行可能なraw diffとhidden rubricはリポジトリレベルの [task manifest](../quality/tasks/cases.jsonl) に登録済み。実行時は `scripts/eval_tasks.py prepare` で分離パケットを生成し、このファイルやrubricをexecutorへ見せない。
+
 ## 発火テスト
 
 ### 発火すべきプロンプト
@@ -25,7 +27,7 @@
 ## 検証シナリオ
 
 ### S1: クーポン適用ユースケースのPRレビュー(中心ユースケース)
-- **タスク**: 「中古書籍ECのクーポン適用機能のPRをレビューして」と依頼し、TypeScriptの差分(約80行)を添付する。意図的な欠陥: (a) 割引後金額に下限がなく割引額が商品額を超えると負の請求額になる、(b) クーポンIDの所有者チェックがなく他人のクーポンを指定できる、(c) 金額計算がnumberの浮動小数点演算。呼び出し元コントローラは差分外として提供する。
+- **タスク**: 「中古書籍ECのクーポン適用機能のPRをレビューして」と依頼し、`quality/fixtures/impl-review/coupon-pr.diff` のTypeScript差分を添付する。差分の欠陥説明と合格条件はexecutorへ渡さず、grader側だけで保持する。
 - **スキルなしで予想される欠落**: 指摘の重大度分類がなくスタイル指摘とバグが同列に並ぶ。「〜かもしれない」形の裏取りのない指摘。approve/request-changes/escalate の機械可読な判定の欠落。diff外(呼び出し元)の確認の欠落。「確認して問題なしだった点」の報告の欠落。
 - **合格条件**:
   - [ ] 冒頭に approve / request-changes / escalate のいずれかの判定が明記されている
@@ -57,5 +59,10 @@
 
 | 日付 | モデル | 条件 | シナリオ | 判定 | メモ |
 |---|---|---|---|---|---|
+| 2026-07-20 | gpt-5.6-sol (reasoning=max) | baseline | S1 | 5/7 (3/3回) | critical失敗3、平均15,959 tokens、平均51.8秒 |
+| 2026-07-20 | gpt-5.6-sol (reasoning=max) | with-skill | S1 | 6/7 (3/3回) | critical失敗0、平均69,016 tokens、平均136.6秒。改善前スナップショットを評価 |
+| 2026-07-20 | gpt-5.6-sol (reasoning=max) | 改善後回帰 | S1 | 7/7 (3/3回) | critical失敗0、平均88,963 tokens、平均255.1秒、tool error 0。同一シナリオのためheld-out主張には使用しない |
 
-(未実施)
+詳細: [初回blind評価](../quality/results/2026-07-20/impl-review-coupon-pr/summary.json) / [改善後の同一シナリオ回帰](../quality/results/2026-07-20/impl-review-coupon-pr/final-regression/summary.json)
+
+(未実施) S2/S3・自動発火評価

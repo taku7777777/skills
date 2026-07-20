@@ -1,0 +1,4 @@
+interface:
+  display_name: "Harness Engineering"
+  short_description: "Design measurable verification gates for delegated agent work"
+  default_prompt: "Use $harness-engineering to design verification gates and metrics for delegating this work."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Requirements Definition"
+  short_description: "Turn ambiguous requests into scoped, testable requirements"
+  default_prompt: "Use $requirements-definition to discover and document testable requirements for this request."

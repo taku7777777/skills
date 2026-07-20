@@ -1,0 +1,35 @@
+{
+  "case_id": "impl-review-coupon-pr",
+  "suite_cases": 18,
+  "evaluated_cases": 1,
+  "case_decision": "adopt",
+  "adoption_ready": false,
+  "baseline": {
+    "runs": 3,
+    "mean_pass_rate": 0.7142857142857143,
+    "critical_failures": 3,
+    "mean_tokens": 15958.666666666666,
+    "mean_latency_ms": 51834.0,
+    "mean_cost_usd": null,
+    "tool_errors": 0
+  },
+  "with_skill": {
+    "runs": 3,
+    "mean_pass_rate": 0.8571428571428571,
+    "critical_failures": 0,
+    "mean_tokens": 69016.0,
+    "mean_latency_ms": 136604.33333333334,
+    "mean_cost_usd": null,
+    "tool_errors": 0
+  },
+  "pass_rate_delta": 0.1428571428571428,
+  "token_overhead_ratio": 4.324672069512909,
+  "latency_overhead_ratio": 2.6354194801353037,
+  "repeated_failure": {
+    "criterion": "money-type",
+    "baseline_failures": 3,
+    "with_skill_failures": 3,
+    "diagnosis": "The evaluated skill either omitted a concrete floating-point failure or classified it as a Blocker solely because money used a floating-point type."
+  },
+  "warning": "This is a one-scenario, three-repetition pilot. It detects a gross task-quality difference but is not a statistical significance or repository-wide adoption claim."
+}

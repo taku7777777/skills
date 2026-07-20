@@ -1,0 +1,12 @@
+{
+  "case_id": "cicd-release-checkout-pipeline",
+  "criteria": [
+    {"id": "baseline", "description": "12 deploy、4 failures、95分復旧、大差分を現状baselineとして使い、頻度だけを盲目的に上げない", "critical": false},
+    {"id": "build-once", "description": "同一artifactを環境間でpromoteし、stagingとproductionの別buildをやめる", "critical": false},
+    {"id": "progressive", "description": "10%等の段階展開、checkout成功率/latencyの自動判定、停止・rollback条件を定義する", "critical": true},
+    {"id": "db-safety", "description": "起動時dropをやめ、expand-contractと新旧1時間共存、schema互換を設計する", "critical": true},
+    {"id": "rollback", "description": "immutable version、既知の前artifact、アプリrollbackとDB互換性、演習を含む", "critical": true},
+    {"id": "flags", "description": "flagのowner、期限、削除条件、緊急kill switchを定義する", "critical": false},
+    {"id": "measurement", "description": "DORA指標とSLO/変更障害を自チーム改善に使い、チーム評価や因果断定を避ける", "critical": false}
+  ]
+}

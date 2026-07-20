@@ -1,0 +1,12 @@
+{
+  "case_id": "quarterly-low-code-review",
+  "criteria": [
+    {"id": "settle-forecast", "description": "65%予測を外れと判定しBrier=(0.65-0)^2=0.4225を計算する", "critical": true},
+    {"id": "reference-score", "description": "固定された30%参照のBrier=0.09と、BSS=1-0.4225/0.09が負になることを示し、参照を結果後に変更しない", "critical": false},
+    {"id": "falsification", "description": "主要基盤リリースと求人24%減を中心前提への反証として薄めず扱う", "critical": true},
+    {"id": "probabilities", "description": "確率合計100%を保って更新し、方向・根拠・据え置き項目を明記する", "critical": false},
+    {"id": "strategy", "description": "実装力だけでなく統合・移行・security reviewへ打ち手を具体的に更新する", "critical": false},
+    {"id": "new-predictions", "description": "期限・観測可能条件・確率を持つ新規予測を最低3件登録する", "critical": false},
+    {"id": "bounded-tools", "description": "fixtureだけを使う指示を守り、Web検索や利用不能なsubagentを必須にしない", "critical": true}
+  ]
+}

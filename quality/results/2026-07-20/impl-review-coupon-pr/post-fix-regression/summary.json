@@ -1,0 +1,27 @@
+{
+  "scope": "same-scenario regression check after an empirically targeted skill edit",
+  "held_out_claim": false,
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "max",
+  "runs": 3,
+  "blind_mean_pass_rate": 1.0,
+  "critical_failures": 0,
+  "mean_tokens": 261728.33333333334,
+  "mean_latency_ms": 381086.6666666667,
+  "cost_usd": null,
+  "tool_errors": 5,
+  "environment_errors": 1,
+  "per_run": [
+    {"run": 1, "pass_rate": 1.0, "tokens": 185418, "latency_ms": 299441, "tool_errors": 1},
+    {"run": 2, "pass_rate": 1.0, "tokens": 378775, "latency_ms": 446469, "tool_errors": 2, "environment_errors": 1},
+    {"run": 3, "pass_rate": 1.0, "tokens": 220992, "latency_ms": 397350, "tool_errors": 2}
+  ],
+  "comparison_to_initial_with_skill": {
+    "pass_rate_delta": 0.1428571428571429,
+    "token_overhead_ratio": 3.7922848808005876,
+    "latency_overhead_ratio": 2.789711404957871,
+    "tool_error_delta": 5
+  },
+  "decision": "reject-as-final",
+  "decision_reason": "The targeted criterion improved from 0/3 to 3/3, but tool errors and resource use regressed sharply. A bounded fast path is required before this edit can be the final adopted version."
+}

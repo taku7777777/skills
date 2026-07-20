@@ -1,0 +1,4 @@
+interface:
+  display_name: "Documentation for Humans and AI"
+  short_description: "Maintain shared repository documentation for people and agents"
+  default_prompt: "Use $docs-for-ai to audit and redesign this repository documentation for humans and agents."

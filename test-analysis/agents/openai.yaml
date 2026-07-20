@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Analysis"
+  short_description: "Identify risk-prioritized test conditions, models, and oracles"
+  default_prompt: "Use $test-analysis to determine what should be tested and where the greatest risks are."

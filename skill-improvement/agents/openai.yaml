@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Improvement"
+  short_description: "Create and improve skills through isolated baseline evaluation"
+  default_prompt: "Use $skill-improvement to evaluate this skill against a baseline and propose only measured improvements."

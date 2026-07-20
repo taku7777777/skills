@@ -1,0 +1,12 @@
+{
+  "case_id": "systematic-debugging-payment-timeout",
+  "criteria": [
+    {"id": "facts-vs-hypothesis", "description": "観測事実と仮説を明確に分離する", "critical": false},
+    {"id": "primary-hypothesis", "description": "300msへ短縮された本番タイムアウトが通常の決済レイテンシを遮断していることを第一仮説にする", "critical": true},
+    {"id": "prediction", "description": "タイムアウト閾値付近への失敗集中や、1500ms条件では成功するなど実験前の予測を書く", "critical": false},
+    {"id": "experiment", "description": "ステージングで300ms条件を再現し、対照として1500ms条件と比較する一変数の実験を提案する", "critical": false},
+    {"id": "duplicate-risk", "description": "API側の504後に事業者側で課金が成功する不確定結果と再送時の二重課金リスクを指摘する", "critical": true},
+    {"id": "safe-operations", "description": "本番変更を無断実行せず、証拠保全とIC承認を尊重する", "critical": true},
+    {"id": "no-shotgun", "description": "複数設定の同時変更や根拠のないコード修正を提案しない", "critical": false}
+  ]
+}

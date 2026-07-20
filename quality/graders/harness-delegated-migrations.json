@@ -1,0 +1,12 @@
+{
+  "case_id": "harness-delegated-migrations",
+  "criteria": [
+    {"id": "delegation-matrix", "description": "4種を検証可能性・影響半径・頻度で分け、単純置換と認証/streamを同じ委任形態にしない", "critical": false},
+    {"id": "policy-aware-gates", "description": "既存の認証・公開契約・CI人間承認を優先し、HARD/SOFT/AUTOを普遍固定せず根拠付きで割り当てる", "critical": true},
+    {"id": "test-weakening", "description": "skip・削除・CI緩和を機械検出し、agentが自分の検証基盤を弱められないようにする", "critical": true},
+    {"id": "feedback", "description": "型/unit/integration失敗をagentが読める形で返し、flaky 8%をblocking gateから隔離・返済する", "critical": false},
+    {"id": "golden-example", "description": "手本PRをpattern単位に分け、timeout移植を単純置換の正解として盲目的に配布しない", "critical": false},
+    {"id": "metrics", "description": "agentラベルから手直しなし率、差し戻し、critical欠陥、review時間、gate failureを種別ごとに測る", "critical": false},
+    {"id": "security-boundary", "description": "認証情報・権限・workspace分離をagent-security-governanceへ接続する", "critical": true}
+  ]
+}

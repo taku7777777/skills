@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Security Governance"
+  short_description: "Review permissions, isolation, egress, and supply-chain risk"
+  default_prompt: "Use $agent-security-governance to review this agent setup and propose enforceable security controls."

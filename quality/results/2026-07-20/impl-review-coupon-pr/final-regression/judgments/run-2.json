@@ -1,0 +1,1 @@
+{"criteria":{"verdict":true,"ownership":true,"negative-total":true,"money-type":true,"outside-diff":true,"evidence":true,"no-edit":true},"notes":"全criterionがpassesの要件を満たしています。判定は冒頭でescalateと明示され、所有者未照合と負額化を具体的な失敗シナリオおよびコード根拠付きで指摘しています。通貨の浮動小数点問題はBlockerにせず扱い、入力検証・同時利用・永続化契約にも言及しています。コード変更も行っていません。"}

@@ -9,7 +9,7 @@ Anthropic「Effective harnesses for long-running agents」、Birgitta Böckeler(
 
 ## 大原則
 
-1. **委任の上限は能力ではなく検証で決まる。** モデルが50%の確率で完遂できるタスク長と、高信頼で任せられる長さには1〜2桁の差がある(METRの実測: 80%信頼で約1/4。Ordのモデル外挿: 99%信頼で約1/70)。検証手段を設計することが委任範囲を広げる唯一の方法。
+1. **委任の上限は能力だけでなく検証で決まる。** METRのtime horizonは、特定のソフトウェア課題群について「人間専門家の所要時間」と成功確率の関係を推定する指標であり、エージェントの連続稼働時間そのものではない。50%成功の能力値をそのまま高信頼な委任範囲とみなさず、対象モデル・ツール構成・課題種別で実測する。高信頼側ほど委任可能な課題が短くなるという比率は設計上の警告として使い、固定定数にはしない(時点依存の根拠は `references/evidence.md`)。
 2. **確率的な指示より決定論的なガードレール。** 「〜しないでください」というプロンプトは防御ではない。型・テスト・lint・CI・権限・サンドボックスという機械的強制に置き換えられるものはすべて置き換える。
 3. **ハーネスとは優れたエンジニアリング実践の成文化である。** fitness functions・CI/CD・コードレビュー基準の延長であり、アーキテクチャ規律そのもの。新しい魔法ではない。
 4. **フィードバックの質が自律性を決める。** エージェントが失敗を「読んで・理解して・修正できる」形で返す仕組み(明確なエラーメッセージ、高速なテスト、再現手順)への投資が最もレバレッジが高い。
@@ -31,7 +31,7 @@ Anthropic「Effective harnesses for long-running agents」、Birgitta Böckeler(
 
 ### ステップ2: ゲート分類(HARD / SOFT / AUTO)
 
-変更の種類ごとに、誰が承認するかを明文化する:
+変更の種類ごとに、誰が承認するかを明文化する。以下は開始時の**候補**であり、組織の責任分界、規制、影響半径、可逆性、検証能力、ユーザーが与えた権限に合わせて調整する。既存ポリシーがあればそれを優先し、分類変更の根拠を記録する:
 
 - **HARDゲート(人間の承認必須)**: アーキテクチャ境界の変更、公開API・イベントスキーマ等の公開契約、ドメイン不変条件、認証認可・課金・データ削除、依存の追加、本番設定、および**検証ハーネス自体の変更**(CI設定・hooks・lint/型チェック設定の緩和・fitness function閾値・ゲート定義・CLAUDE.md)
 - **SOFTゲート(エージェントレビュー+サンプリングで人間確認)**: 境界内の実装変更、テスト追加、内部リファクタリング
@@ -99,4 +99,4 @@ Anthropic「Effective harnesses for long-running agents」、Birgitta Böckeler(
 
 ## 知見の出典
 
-Anthropic「Effective harnesses for long-running agents」「2026 Agentic Coding Trends Report」/ Birgitta Böckeler(martinfowler.com: Harness Engineering, Maintainability Sensors)/ Spec Growth Engine(arXiv 2606.27045, drift gate・ゲート分類 — 査読前preprint)/ David Parnas(情報隠蔽)/ Neal Ford & Rebecca Parsons『進化的アーキテクチャ』(fitness functions)/ METR time horizon研究・Toby Ord half-life分析(信頼性の壁)
+Anthropic「Effective harnesses for long-running agents」「2026 Agentic Coding Trends Report」/ Birgitta Böckeler(martinfowler.com: Harness Engineering, Maintainability Sensors)/ Spec Growth Engine(arXiv 2606.27045, drift gate・ゲート分類 — 査読前preprint)/ David Parnas(情報隠蔽)/ Neal Ford & Rebecca Parsons『進化的アーキテクチャ』(fitness functions)/ METR time horizon研究。時点依存の数値・適用範囲・アクセス日は `references/evidence.md` を参照。

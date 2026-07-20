@@ -4,6 +4,8 @@
 references/eval-template.md を参照。対象文書が設定依存のため、検証シナリオは
 架空の予測文書をタスク内に添付して自己完結させる。
 
+追加の実行可能なraw fixtureとhidden rubricは [task manifest](../quality/tasks/cases.jsonl) に登録済み。実行時は `scripts/eval_tasks.py prepare` で分離し、rubricをexecutorへ見せない。
+
 ## 発火テスト
 
 ### 発火すべきプロンプト

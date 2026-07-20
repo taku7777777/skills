@@ -3,6 +3,8 @@
 スキルの効果を測定するための評価定義。運用方法は skill-improvement スキルの
 references/eval-template.md を参照。
 
+本文3シナリオとは別のforward testとして、解約・返金仕様のraw fixtureとhidden rubricを [task manifest](../quality/tasks/cases.jsonl) に登録済み。実行時は `scripts/eval_tasks.py prepare` で分離する。
+
 ## 発火テスト
 
 ### 発火すべきプロンプト

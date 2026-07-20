@@ -1,0 +1,12 @@
+{
+  "case_id": "arch-security-document-sharing",
+  "criteria": [
+    {"id": "drivers", "description": "可用性、latency、scan期限、ゼロ許容漏洩、residency、費用を測定可能な品質特性シナリオへする", "critical": false},
+    {"id": "boundaries", "description": "tenant、社外受信者、object storage/CDN、scanner、IdPの信頼境界とデータフローを示す", "critical": true},
+    {"id": "authorization", "description": "tenant/object単位認可、期限・受信者制約、scan前アクセス拒否をfail-closeで設計する", "critical": true},
+    {"id": "threats", "description": "IDOR、リンク漏洩、malware、presigned URL再利用、tenant混同等を資産・対策・残余リスクと結び付ける", "critical": false},
+    {"id": "availability-cost", "description": "upload非同期化、download path、peak、storage/CDN/scan費用の上限を同時に扱う", "critical": false},
+    {"id": "data-lifecycle", "description": "30日/7年保持、EU residency、削除、鍵管理とBYOK判断を扱う", "critical": true},
+    {"id": "adrs", "description": "CDN、scan前取得、BYOK等の重要判断を選択肢・根拠・見直し条件付きADR候補にする", "critical": false}
+  ]
+}

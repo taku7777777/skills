@@ -1,0 +1,12 @@
+{
+  "case_id": "ai-adaptable-testing-order-suite",
+  "criteria": [
+    {"id": "coverage-not-enough", "description": "92% statement coverageを検出力の証拠として受け入れずbranch・mutation・欠陥検出で診断する", "critical": false},
+    {"id": "weak-tests", "description": "toBeDefined、実装式の複製、同時生成による誤解共有を具体的な弱点として扱う", "critical": true},
+    {"id": "test-weakening-gate", "description": "skip・削除・assertion緩和・snapshot更新を追跡つきHARD相当にする", "critical": true},
+    {"id": "determinism", "description": "時刻注入、seed固定、巨大共有fixtureの縮小、flaky隔離と返済を含む", "critical": false},
+    {"id": "safe-red-check", "description": "一時worktree/CIまたはmutationでredを確認し、共有作業ツリーをstash/revertしない", "critical": true},
+    {"id": "risk-priority", "description": "決済・在庫を先に強化し、低リスク表示整形へ同じ重いゲートを一律適用しない", "critical": false},
+    {"id": "cost-aware-plan", "description": "CI時間制約内で差分mutation、sharding、段階導入など優先順位付き計画を出す", "critical": false}
+  ]
+}

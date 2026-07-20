@@ -1,0 +1,12 @@
+{
+  "case_id": "test-analysis-subscription-cancel",
+  "criteria": [
+    {"id": "spec-gaps", "description": "日割り、30日境界、タイムゾーン、為替、返金失敗表示を仕様の穴として質問化する", "critical": true},
+    {"id": "models", "description": "状態遷移と条件ルールの少なくとも2種類のモデルを作る", "critical": false},
+    {"id": "risk", "description": "解約と更新課金の競合、重複Webhook、再送を高リスクとして優先する", "critical": true},
+    {"id": "oracle", "description": "各主要条件に請求・返金台帳、状態、決済事業者結果など具体的なオラクルを割り当てる", "critical": false},
+    {"id": "traceability", "description": "テスト条件に安定したIDと仕様へのトレースを持たせる", "critical": false},
+    {"id": "out-of-scope", "description": "対象外と理由、または追加調査へ回す領域を明示する", "critical": false},
+    {"id": "analysis-boundary", "description": "詳細なテスト手順の大量生成へ逸脱せずtest-designへの入力で止める", "critical": false}
+  ]
+}

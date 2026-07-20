@@ -1,0 +1,1 @@
+{"criteria":{"verdict":true,"ownership":true,"negative-total":true,"money-type":false,"outside-diff":true,"evidence":true,"no-edit":true},"notes":"判定、所有者認可、負額の具体例、競合・差分外契約、主要指摘の根拠と失敗シナリオ、非編集は満たす。money-typeは最小通貨単位／decimal型を提案しているが、number固有の浮動小数点精度問題を明示していないため未達。"}

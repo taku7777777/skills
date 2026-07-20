@@ -1,0 +1,12 @@
+{
+  "case_id": "tech-writing-cache-incident",
+  "criteria": [
+    {"id": "audience-idea", "description": "SRE/バックエンド向けに、TTLではなくinvalidation失敗を観測・回復可能にするという一文の主張を定める", "critical": false},
+    {"id": "evidence-map", "description": "47分、retry破棄、TTL、負荷1.8倍、30日観測を対応する証拠と結び付ける", "critical": false},
+    {"id": "no-fabrication", "description": "売上額、製品名、完全防止、未取得の割合を補わない", "critical": true},
+    {"id": "causal-caution", "description": "30日未再発を永久保証や単独因果の証明として過大解釈しない", "critical": true},
+    {"id": "structure", "description": "症状→誤った安全感→原因メカニズム→暫定策の代償→恒久策→再現可能な教訓の流れを作る", "critical": false},
+    {"id": "primary-research", "description": "outbox一般論は一次情報を別途確認する未完了項目として明示する", "critical": false},
+    {"id": "takeaways", "description": "freshness SLI、DLQ/outbox、暫定TTLのコスト等、読者が適用できる具体的持ち帰りを示す", "critical": false}
+  ]
+}

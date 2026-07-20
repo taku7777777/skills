@@ -1,0 +1,1 @@
+{"criteria":{"verdict":false,"ownership":true,"negative-total":true,"money-type":false,"outside-diff":true,"evidence":true,"no-edit":true},"notes":"冒頭の「マージ不可（要修正）」は結論として明確だが、要求された機械可読な `request-changes` または `escalate` ではない。所有者照合欠落、割引超過による負額（100−300＝−200）、競合・入力検証・差分外契約、主要指摘の根拠と失敗シナリオは満たす。一方、金額を number で扱う浮動小数点精度や単位の問題には言及していない。"}

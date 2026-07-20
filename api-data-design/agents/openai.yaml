@@ -1,0 +1,4 @@
+interface:
+  display_name: "API and Data Design"
+  short_description: "Design evolvable API contracts, schemas, and safe migrations"
+  default_prompt: "Use $api-data-design to design this API contract, data schema, and compatibility-safe migration."

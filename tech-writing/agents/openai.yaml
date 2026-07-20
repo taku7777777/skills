@@ -1,0 +1,4 @@
+interface:
+  display_name: "Technical Writing"
+  short_description: "Develop evidence-backed technical articles, talks, and proposals"
+  default_prompt: "Use $tech-writing to turn this technical experience into a focused, evidence-backed narrative."

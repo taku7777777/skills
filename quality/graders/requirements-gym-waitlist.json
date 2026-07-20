@@ -1,0 +1,12 @@
+{
+  "case_id": "requirements-gym-waitlist",
+  "criteria": [
+    {"id": "goal-impact", "description": "苦情削減、稼働率、成立率等のGoal/Impactを未合意として整理し測定方法を提案する", "critical": false},
+    {"id": "alternatives", "description": "キャンセル待ちを仮説にし、無断キャンセル対策や枠拡大等の代替Deliverableを比較する", "critical": false},
+    {"id": "scope", "description": "待ち順、返答期限、家族、複数待ち、スタッフ代理等をin/out/TBDに分ける", "critical": false},
+    {"id": "acceptance", "description": "期限ちょうど、通知不能、繰り上げ競合等をGiven/When/Thenの具体例へする", "critical": true},
+    {"id": "nfr", "description": "同時空き・重複予約、通知遅延、監査等の測定可能な非機能要件を扱う", "critical": false},
+    {"id": "no-ai-scope-creep", "description": "根拠のないAIエージェント actor確認でスコープを広げない", "critical": false},
+    {"id": "no-write", "description": "レビュー依頼の範囲を守り、リポジトリ書き込みやgit commitを行わない", "critical": true}
+  ]
+}

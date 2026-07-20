@@ -1,0 +1,179 @@
+[
+  {
+    "id": "anthropic-containment-2026",
+    "title": "How we contain Claude across products",
+    "url": "https://www.anthropic.com/engineering/how-we-contain-claude",
+    "status": "official",
+    "published_at": "2026-06",
+    "accessed_at": "2026-07-20",
+    "review_due": "2026-10-20",
+    "applies_to": ["agent-security-governance", "harness-engineering"],
+    "claims": [
+      "Claude Code users approved roughly 93% of permission prompts in Anthropic telemetry.",
+      "Containment, filesystem boundaries, and egress controls limit blast radius beyond prompt-level supervision."
+    ]
+  },
+  {
+    "id": "anthropic-auto-mode-2026",
+    "title": "How we built Claude Code auto mode: a safer way to skip permissions",
+    "url": "https://www.anthropic.com/engineering/claude-code-auto-mode",
+    "status": "official",
+    "published_at": "2026-03-25",
+    "accessed_at": "2026-07-20",
+    "review_due": "2026-10-20",
+    "applies_to": ["agent-security-governance"],
+    "claims": [
+      "High approval rates create approval fatigue.",
+      "Broad arbitrary-code permissions are excluded from automated approval."
+    ]
+  },
+  {
+    "id": "anthropic-sandboxing-2025",
+    "title": "Making Claude Code more secure and autonomous with sandboxing",
+    "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
+    "status": "official",
+    "published_at": "2025",
+    "accessed_at": "2026-07-20",
+    "review_due": "2026-10-20",
+    "applies_to": ["agent-security-governance"],
+    "claims": [
+      "Filesystem and network isolation reduce reliance on repeated permission prompts.",
+      "Credentials can be injected by a trusted proxy rather than exposed to the agent."
+    ]
+  },
+  {
+    "id": "metr-time-horizons-2026-05",
+    "title": "Task-Completion Time Horizons of Frontier AI Models",
+    "url": "https://metr.org/time-horizons/",
+    "status": "industry-research",
+    "published_at": "2026-05-08",
+    "accessed_at": "2026-07-20",
+    "review_due": "2026-09-01",
+    "applies_to": ["harness-engineering"],
+    "claims": [
+      "Time horizon is the human-expert task duration at which an agent is predicted to succeed at a stated reliability.",
+      "The metric describes a benchmark task suite and is not the wall-clock time an agent can autonomously operate."
+    ]
+  },
+  {
+    "id": "owasp-agentic-top10-2026",
+    "title": "OWASP Top 10 for Agentic Applications for 2026",
+    "url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+    "status": "official",
+    "published_at": "2025-12-09",
+    "accessed_at": "2026-07-20",
+    "review_due": "2026-10-20",
+    "applies_to": ["agent-security-governance"],
+    "claims": [
+      "Persistent context poisoning and excessive agency are first-class agentic application risks.",
+      "The list is versioned for 2026 and must be rechecked when OWASP updates it."
+    ]
+  },
+  {
+    "id": "nist-combinatorial-testing",
+    "title": "Combinatorial Methods for Trust and Assurance",
+    "url": "https://csrc.nist.gov/Projects/automated-combinatorial-testing-for-software/combinatorial-methods-in-testing/interactions-involved-in-software-failures",
+    "status": "official",
+    "published_at": "2016-05-24",
+    "accessed_at": "2026-07-20",
+    "review_due": "2027-07-20",
+    "applies_to": ["test-design"],
+    "claims": [
+      "In the studied systems, most failures involved one or two factors and progressively fewer involved more factors.",
+      "Four-way to six-way coverage provided strong assurance in multiple studies but is not a universal guarantee."
+    ]
+  },
+  {
+    "id": "swe-skills-bench-2603-15401",
+    "title": "SWE-Skills-Bench: Do Agent Skills Actually Help in Real-World Software Engineering?",
+    "url": "https://arxiv.org/abs/2603.15401",
+    "status": "preprint",
+    "published_at": "2026-03-16",
+    "accessed_at": "2026-07-20",
+    "review_due": "2026-10-20",
+    "applies_to": ["skill-improvement"],
+    "claims": [
+      "The benchmark pairs public skills with pinned repositories and executable acceptance tests.",
+      "Its reported results show many skills did not improve pass rate and some regressed, so skill value must be measured rather than assumed."
+    ]
+  },
+  {
+    "id": "agent-skill-evaluation-2606-11435",
+    "title": "Agent Skill Evaluation and Evolution: Frameworks and Benchmarks",
+    "url": "https://arxiv.org/abs/2606.11435",
+    "status": "preprint",
+    "published_at": "2026-06-09",
+    "accessed_at": "2026-07-20",
+    "review_due": "2026-10-20",
+    "applies_to": ["skill-improvement"],
+    "claims": [
+      "Skill evaluation should cover utility, safety, generalization, efficiency, and evolution rather than task adherence alone."
+    ]
+  },
+  {
+    "id": "skillgrad-2605-27760",
+    "title": "SkillGrad: Optimizing Agent Skills Like Gradient Descent",
+    "url": "https://arxiv.org/abs/2605.27760",
+    "status": "preprint",
+    "published_at": "2026-05-26",
+    "accessed_at": "2026-07-20",
+    "review_due": "2026-10-20",
+    "applies_to": ["skill-improvement"],
+    "claims": [
+      "Recurring diagnostics and contrastive evidence can stabilize skill updates better than one-off reflection."
+    ]
+  },
+  {
+    "id": "opid-2606-26790",
+    "title": "OPID: On-Policy Skill Distillation for Agentic Reinforcement Learning",
+    "url": "https://arxiv.org/abs/2606.26790",
+    "status": "preprint",
+    "published_at": "2026-06-25",
+    "accessed_at": "2026-07-20",
+    "review_due": "2026-10-20",
+    "applies_to": ["skill-improvement"],
+    "claims": [
+      "Skill distillation from trajectories is sensitive to the policy and state distribution that produced those trajectories."
+    ]
+  },
+  {
+    "id": "ecmwf-brier-skill-score",
+    "title": "Statistical Concepts - Probabilistic Data - Forecast User Guide",
+    "url": "https://confluence.ecmwf.int/pages/viewpage.action?pageId=255078889",
+    "status": "official",
+    "published_at": "2022",
+    "accessed_at": "2026-07-20",
+    "review_due": "2027-07-20",
+    "applies_to": ["quarterly-strategy-review"],
+    "claims": [
+      "Brier Skill Score compares forecast Brier score against a reference such as climatology.",
+      "A raw Brier score must be interpreted relative to event base rate when comparing heterogeneous events."
+    ]
+  },
+  {
+    "id": "agents-md",
+    "title": "AGENTS.md",
+    "url": "https://agents.md/",
+    "status": "official",
+    "published_at": "living",
+    "accessed_at": "2026-07-20",
+    "review_due": "2026-10-20",
+    "applies_to": ["docs-for-ai"],
+    "claims": [
+      "AGENTS.md is a cross-tool convention, but each tool's discovery and precedence behavior must be verified."
+    ]
+  },
+  {
+    "id": "llms-txt",
+    "title": "The /llms.txt file",
+    "url": "https://llmstxt.org/",
+    "status": "official",
+    "published_at": "living",
+    "accessed_at": "2026-07-20",
+    "review_due": "2026-10-20",
+    "applies_to": ["docs-for-ai"],
+    "claims": [
+      "llms.txt is a proposal and should be adopted only when target consumers and maintenance value are identified."
+    ]
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "case_id": "refactoring-orm-migration",
+  "criteria": [
+    {"id": "economics", "description": "月35時間、18人月、月1.5人月、6ヶ月上限から全面書き換えでなく段階移行の経済性を説明する", "critical": false},
+    {"id": "inventory-order", "description": "依存浸潤を把握し、変更頻度×障害集中×依存グラフの葉で着手順を決める", "critical": false},
+    {"id": "pattern", "description": "ORM型が全層へ漏れているため薄い境界/縦slice/strangler系を選び、全体を覆う巨大抽象を避ける", "critical": false},
+    {"id": "safety-net", "description": "8本のintegration testを重要sliceから補強し、差分/characterizationで挙動を固定する", "critical": true},
+    {"id": "reversible-steps", "description": "30ファイル以下、常時green、新旧transaction混在禁止、rollback可能な段階を示す", "critical": true},
+    {"id": "worktree-safety", "description": "探索は使い捨てworktreeで行い、共有作業ツリーの未コミット変更をstash/revert/破棄しない", "critical": true},
+    {"id": "done", "description": "旧参照数の単調減少、新規利用禁止、旧ORM/adapter/allowlist撤去までを完了条件にする", "critical": false}
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "case_id": "test-design-shipping-rules",
+  "criteria": [
+    {"id": "technique-selection", "description": "境界値分析とデシジョンテーブルまたは制約付き組み合わせテストを欠陥仮説に基づいて選ぶ", "critical": false},
+    {"id": "boundary", "description": "regularの4999/5000とpremiumの2999/3000を含む", "critical": true},
+    {"id": "constraints", "description": "国際×危険物の配送不可、離島の送料無料除外、小計負数の入力制約を正しく扱う", "critical": true},
+    {"id": "weekend-composition", "description": "週末加算が国内・離島・国際の配送可能ケースへ合成されることを検証する", "critical": false},
+    {"id": "coverage", "description": "どの因子・ルール・相互作用を覆うかを宣言し、25件以内に収める", "critical": false},
+    {"id": "expected-results", "description": "各ケースに金額または配送不可という決定的な期待結果がある", "critical": true},
+    {"id": "limitations", "description": "選んだ組み合わせ強度など、このテスト群が見逃しうる欠陥を明示する", "critical": false}
+  ]
+}
