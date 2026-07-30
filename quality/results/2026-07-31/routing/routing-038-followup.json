@@ -1,0 +1,17 @@
+{
+  "kind": "routing-followup",
+  "date": "2026-07-31",
+  "judge_model": "claude-opus-5",
+  "reason": "47件の本測定で使ったブラインド用プロンプトの route-038 が、サイクル2で cases.jsonl 側を書き換える前の版だった(旧版は route-046 とほぼ重複した文面で、delegation-economy の識別ケースを検証できていなかった)。現行の文面で単体追試した。",
+  "case_id": "route-038",
+  "prompt": "調査タスクを片っ端からサブエージェントへ投げるようにしたら、かえって費用が増えた。同じファイルを親でも読み直している気がする。並列の使い方と、急がない一括処理をまとめて安く回す構成を見直したい",
+  "predicted": { "primary": "delegation-economy", "secondary": [] },
+  "expected": { "primary": "delegation-economy", "secondary": [], "forbidden": ["harness-engineering"] },
+  "verdict": "match",
+  "forbidden_violation": false,
+  "judge_rationale": "決め手は description の「サブエージェント・headless・Batch・agent teams の構成選択」。22スキル中「Batch」を含むのはこのスキルのみで、プロンプトの「急がない一括処理」が一意に写像された。「二重払い」(親の重複読み込み)・「fan-out過多」(片っ端から投げる)も症状に逐語対応する。次点の context-economy は description のスコープがセッション運用・キャッシュ失効・起動固定費に限定され対応語句なし。forbidden の harness-engineering は検証ゲート・エスカレーション基準の語彙で構成されコスト語彙を持たないため誤検討に至らなかった。",
+  "limitations": [
+    "単一ケース・単一判定者の追試であり、47件本測定と同じ統制下ではあるが独立した再測定ではない。",
+    "本測定の集計値(45/47)にこの追試は含めていない。含めても primary 一致数は変わらない(旧版プロンプトも同じ delegation-economy ラベルで正解していたため)。"
+  ]
+}

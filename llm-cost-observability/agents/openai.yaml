@@ -1,0 +1,4 @@
+interface:
+  display_name: "LLM Cost Observability"
+  short_description: "Measure LLM usage costs and design metrics, budgets, and interventions that change behavior"
+  default_prompt: "Use $llm-cost-observability to design the cost metrics, attribution, interventions, and weekly review for our LLM usage."

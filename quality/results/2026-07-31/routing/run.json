@@ -1,0 +1,47 @@
+{
+  "kind": "routing",
+  "date": "2026-07-31",
+  "judge_model": "claude-opus-5",
+  "cases": 47,
+  "method": "全22スキルの name + description のみを提示し、期待ラベルを除去した47プロンプトを判定させた。判定を全件書き出すまで quality/routing/cases.jsonl・各スキルの evals.md・過去の予測ファイルの読み取りを禁止し、書き出し後に照合させた。スキル本文(SKILL.md 本体・references)は判定に使わせていない。",
+  "results": {
+    "primary_accuracy": 0.9574,
+    "primary_correct": 45,
+    "forbidden_violations": 0,
+    "null_case_accuracy": 1.0,
+    "exact_match_with_secondary": 43
+  },
+  "thresholds": {
+    "source": "scripts/eval_routing.py",
+    "primary_accuracy_min": 0.9,
+    "forbidden_violations_max": 0,
+    "verdict": "pass"
+  },
+  "mismatches": [
+    {
+      "id": "route-020",
+      "predicted_primary": "systematic-debugging",
+      "expected_primary": "ops-observability",
+      "cause": "description の語彙不足。ops-observability の description は「設計・整備」「インシデント対応プロセスの構築」までで、障害発生時の初動(復旧・観測)を実行するとは書いていない。一方 systematic-debugging には「本番障害の原因を特定して」がトリガー例として逐語で入っている。route-031(原因不明の障害→systematic-debugging)と構造が同型なため、description だけでは両方を当てられない。",
+      "owner": "ops-observability(既存スキル。本カテゴリ追加以前からの穴)"
+    },
+    {
+      "id": "route-035",
+      "predicted_primary": "skill-improvement",
+      "expected_primary": "docs-for-ai",
+      "cause": "description の語彙不足。skill-improvement には「蒸留」「効果測定」が逐語で入り、プロンプトにその2語が出る。docs-for-ai には「監査」「手順書」がなく、最も近いのが「ランブックの整備」。期待ラベルは先頭工程(手順書を監査)を primary とする規約に依るが、その規約は description に現れない。",
+      "owner": "docs-for-ai / skill-improvement(既存スキル)"
+    }
+  ],
+  "limitations": [
+    "判定者は「必ず1つ選べ」と明示された条件下の単一リーダーであり、起動時に全 description が並列提示される実環境のルーティングそのものではない。十分性は示すが頑健性は示さない。",
+    "判定モデルと本スキル群の執筆モデルがいずれも Claude 系である。同系の語彙を読み取りやすい方向のバイアスは除去できていない。",
+    "route-038 のブラインド用プロンプトが、サイクル2で cases.jsonl 側を書き換える前の版だった(旧版は route-046 とほぼ重複)。この47件の結果には delegation-economy の識別ケース(fan-out過多・二重払い・Batch)が含まれていない。別途 route-038 単体で追試した結果は routing-038-followup.json にある。",
+    "2026-07-31 のサイクル3で ai-adaptable-testing / context-economy / docs-for-ai の description を変更した。本測定は変更後の版に対するもの。変更前のベースラインは取っていないため、変更による改善は測定していない。"
+  ],
+  "observations": [
+    "新カテゴリ「AI協働の経済性」4スキルは、既存スキルとの引き離しケース(route-041 CLAUDE.md肥大→docs-for-ai / route-042 検証ゲート→harness-engineering / route-043 受け入れ基準→requirements-definition)と、4スキル相互の切り分け(route-037/044/045/046)をいずれも正しく判定した。コスト系5スキル間の相互汚染は0件。",
+    "不一致2件はいずれも既存スキルの description の穴であり、新カテゴリの追加が原因ではない。",
+    "どの description にも「ADR」の語がなく、route-002 / route-024 の切り分けは description だけでは原理的に判定できない(今回は primary が一致したため採点には影響していない)。"
+  ]
+}

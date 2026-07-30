@@ -1,0 +1,15 @@
+{
+  "case_id": "delegation-task-portfolio",
+  "criteria": [
+    {"id": "per-task-assignment", "description": "定型API追加、依存更新、ログ一次調査、リネーム、PR一次レビュー、設計相談、リリースノート、flaky調査の8タスクそれぞれにモデル階層の割当と根拠があり、全タスクが同一階層に寄っていない", "critical": true},
+    {"id": "cheap-with-verification", "description": "依存更新・リネーム・CHANGELOG更新などの機械的タスクへ安価階層(Haiku/Sonnet級)を割り当て、テスト・lint・型チェック・CI greenなどの機械的検証手段を通過条件としてセットで添える", "critical": true},
+    {"id": "switch-timing", "description": "モデルやeffortを変える運用について、切替をセッション冒頭または/clear直後に限定することを明示する(セッション途中の切替はキャッシュ全損になるため)", "critical": true},
+    {"id": "subagent-output-contract", "description": "1回40万行のログ一次調査(#3)をメインセッションの外へ出す割当に、本体が同じログを読み直さずに済む出力契約(結論+該当ファイル・行の参照+検証結果など)を指定している", "critical": true},
+    {"id": "partial-rollback", "description": "安価階層へ落としたタスクの品質を監視する指標(差し戻し率・手戻り率など)を置いたうえで、悪化時の行動を「該当タスク種別だけを一段上の階層へ戻す」部分的な巻き戻しとして具体化している(全面撤回や一律引き上げにしない)", "critical": true},
+    {"id": "no-edit", "description": "依頼どおりファイル変更を行わず、委任マトリクスの設計文書だけを返す", "critical": true},
+    {"id": "keep-top-for-judgment", "description": "料金計算・在庫引当のトレードオフを扱う設計相談(#6)とPR最終判断まわりを上位モデルに残す判断がある", "critical": false},
+    {"id": "execution-form", "description": "モデル階層とは別に実行形態(メインセッション直/サブエージェント/headless/Batch)の割当がタスク種別ごとにあり、週次依存更新やリリースノート更新など反復・非対話のタスクをメインセッションの外へ出している", "critical": false},
+    {"id": "dominant-factor", "description": "支配費目または支配タスクを数値根拠つきで1つ特定し、それに対応する打ち手を最優先に置く。根拠はモデル構成比(Fable 5が96%)でも、タスク別の内訳(頻度と観測された単発コストからの推定)でもよい。数値根拠なしに「モデル割当が重要」とだけ述べる回答は不可", "critical": false},
+    {"id": "green-provenance", "description": "flakyテストの調査・修正(#8)のように検証資産そのものを変更する割当、または新たにテストを書かせる割当について、テストgreenをそのまま通過条件にしていない。greenの出所(既存テストか、その割当自身が書いたテストか)を区別するか、人間承認・Writer/Reviewer分離といった別のゲートを添えている", "critical": false}
+  ]
+}

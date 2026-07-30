@@ -8,11 +8,11 @@
 {"id":"route-008","prompt":"条件一覧はできたので、境界値表と状態遷移表から実行可能なケースへ落として","expected_primary":"test-design","expected_secondary":[],"forbidden":["test-analysis"]}
 {"id":"route-009","prompt":"このレガシー認証モジュールを止めずに半年で置換する段階計画を立てて","expected_primary":"refactoring-strategy","expected_secondary":[],"forbidden":["ddd-design"]}
 {"id":"route-010","prompt":"mainへマージしてから安全に本番へ出すパイプライン、段階リリース、ロールバックを設計して","expected_primary":"cicd-release","expected_secondary":[],"forbidden":["ops-observability"]}
-{"id":"route-011","prompt":"決済サービスのSLI/SLO、バーンレートアラート、ランブックを作って","expected_primary":"ops-observability","expected_secondary":[],"forbidden":["cicd-release"]}
+{"id":"route-011","prompt":"決済サービスのSLI/SLO、バーンレートアラート、ランブックを作って","expected_primary":"ops-observability","expected_secondary":[],"forbidden":["cicd-release","llm-cost-observability"]}
 {"id":"route-012","prompt":"本番だけ断続的に500になる。推測で直さず原因を切り分けて","expected_primary":"systematic-debugging","expected_secondary":[],"forbidden":["impl-review"]}
-{"id":"route-013","prompt":"エージェントへ定型改修を任せるため、HARD/SOFTゲートと成功率の計測を設計して","expected_primary":"harness-engineering","expected_secondary":[],"forbidden":["agent-security-governance"]}
+{"id":"route-013","prompt":"エージェントへ定型改修を任せるため、HARD/SOFTゲートと成功率の計測を設計して","expected_primary":"harness-engineering","expected_secondary":[],"forbidden":["agent-security-governance","delegation-economy"]}
 {"id":"route-014","prompt":"コーディングエージェントにWebと社内コードを触らせたい。sandbox、egress、権限を審査して","expected_primary":"agent-security-governance","expected_secondary":[],"forbidden":["harness-engineering"]}
-{"id":"route-015","prompt":"CLAUDE.mdとdocsが重複して古くなる。人間とAIが同じ正本を使える体系に直して","expected_primary":"docs-for-ai","expected_secondary":[],"forbidden":["tech-writing"]}
+{"id":"route-015","prompt":"CLAUDE.mdとdocsが重複して古くなる。人間とAIが同じ正本を使える体系に直して","expected_primary":"docs-for-ai","expected_secondary":[],"forbidden":["tech-writing","context-economy"]}
 {"id":"route-016","prompt":"この自作スキルが本当に出力を改善するか、baselineと比較して検証したい","expected_primary":"skill-improvement","expected_secondary":[],"forbidden":["harness-engineering"]}
 {"id":"route-017","prompt":"この技術検証を社外記事にしたい。読者設定、主張、一次情報、構成から一緒に作って","expected_primary":"tech-writing","expected_secondary":[],"forbidden":["docs-for-ai"]}
 {"id":"route-018","prompt":"半年前のAI市場予測を、最新シグナルと反証材料で見直して確率を更新したい","expected_primary":"quarterly-strategy-review","expected_secondary":[],"forbidden":["tech-writing"]}
@@ -34,3 +34,14 @@
 {"id":"route-034","prompt":"Blue/Greenで出した直後のSLO悪化を自動検知してロールバックする仕組みを設計して","expected_primary":"cicd-release","expected_secondary":["ops-observability"],"forbidden":[]}
 {"id":"route-035","prompt":"既存のエージェント向け手順書を監査し、頻出失敗をスキルへ蒸留して効果測定まで回して","expected_primary":"docs-for-ai","expected_secondary":["skill-improvement"],"forbidden":[]}
 {"id":"route-036","prompt":"技術予測の検証結果を更新し、その後カンファレンス発表用のストーリーへ構成して","expected_primary":"quarterly-strategy-review","expected_secondary":["tech-writing"],"forbidden":[]}
+{"id":"route-037","prompt":"Claude Codeを一日中開きっぱなしで使っていたら今月の請求が先月の3倍になった。セッションの切り方・離席のしかた・再開のしかたを見直したい","expected_primary":"context-economy","expected_secondary":[],"forbidden":["docs-for-ai"]}
+{"id":"route-038","prompt":"調査タスクを片っ端からサブエージェントへ投げるようにしたら、かえって費用が増えた。同じファイルを親でも読み直している気がする。並列の使い方と、急がない一括処理をまとめて安く回す構成を見直したい","expected_primary":"delegation-economy","expected_secondary":[],"forbidden":["harness-engineering"]}
+{"id":"route-039","prompt":"Claude Codeに修正を頼むと毎回2〜3往復の直し指示になる。一発で通る頼み方と、迷走したとき見切る基準を整えたい","expected_primary":"prompt-economy","expected_secondary":[],"forbidden":["requirements-definition"]}
+{"id":"route-040","prompt":"開発部のAnthropic利用が3ヶ月で倍増した。誰が何にいくら使っているか分かる状態にして、使いすぎた日に当日中に気づける仕組みまで設計してほしい","expected_primary":"llm-cost-observability","expected_secondary":[],"forbidden":["ops-observability"]}
+{"id":"route-041","prompt":"CLAUDE.mdが肥大して重要な指示が埋もれている。何を残し、何をスキルやディレクトリ別ファイルへ切り出すか、知識の配置を再設計して","expected_primary":"docs-for-ai","expected_secondary":[],"forbidden":["context-economy"]}
+{"id":"route-042","prompt":"エージェントに任せた定型修正のPRを、どこまで人が見てどこから自動マージしてよいか、検証ゲートと承認基準を決めたい","expected_primary":"harness-engineering","expected_secondary":[],"forbidden":["delegation-economy"]}
+{"id":"route-043","prompt":"営業チームから来た「もっと便利にしてほしい」という要望を、開発に渡せる仕様と受け入れ基準へ整理したい","expected_primary":"requirements-definition","expected_secondary":[],"forbidden":["prompt-economy"]}
+{"id":"route-044","prompt":"サブエージェントは使っていないのに、開きっぱなしの長いセッションで費用がかさむ。キャッシュとセッションの切り方を見直したい","expected_primary":"context-economy","expected_secondary":[],"forbidden":["delegation-economy"]}
+{"id":"route-045","prompt":"先週の計測で高コストの主因は離席後のセッション再開だと分かった。日々のセッションの切り方・再開の仕方を具体的に直したい","expected_primary":"context-economy","expected_secondary":[],"forbidden":["llm-cost-observability"]}
+{"id":"route-046","prompt":"定型修正や調査タスクまで毎回最上位モデルのメインセッションでやっている。タスク種別ごとにモデルと委任形態をどう割り当てるか設計して","expected_primary":"delegation-economy","expected_secondary":[],"forbidden":["context-economy"]}
+{"id":"route-047","prompt":"チームのClaude Code利用費をまず見える化し、判明した高コスト要因に応じてセッション運用と委任構成の見直しまで進めたい","expected_primary":"llm-cost-observability","expected_secondary":["context-economy","delegation-economy"],"forbidden":[]}

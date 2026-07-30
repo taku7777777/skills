@@ -1,0 +1,157 @@
+{
+  "case_id": "delegation-task-portfolio",
+  "skill": "delegation-economy",
+  "date": "2026-07-31",
+  "protocol_version": 1,
+  "rubric_of_record": "本ディレクトリの rubric.json(9基準)。現行 quality/graders/delegation-task-portfolio.json は green-provenance が追加され(9→10基準)dominant-factor も緩和されているため、本結果は現行graderでは再現しない(run.json の limitations 参照)。",
+  "baseline": {
+    "runs": 3,
+    "mean_pass_rate": 0.7407407407407406,
+    "critical_failures": 5,
+    "mean_tokens": 4358840.333333333,
+    "mean_latency_ms": 506159.0,
+    "mean_cost_usd": null,
+    "tool_errors": 0,
+    "discriminator_pass_rate": 0.7083333333333334,
+    "guardrail_pass_rate": 1.0,
+    "median_tokens": 4844375,
+    "tokens_range": [
+      2489451,
+      5742695
+    ]
+  },
+  "with-skill": {
+    "runs": 3,
+    "mean_pass_rate": 1.0,
+    "critical_failures": 0,
+    "mean_tokens": 949771.0,
+    "mean_latency_ms": 553092.0,
+    "mean_cost_usd": null,
+    "tool_errors": 0,
+    "discriminator_pass_rate": 1.0,
+    "guardrail_pass_rate": 1.0,
+    "median_tokens": 1156889,
+    "tokens_range": [
+      498262,
+      1194162
+    ]
+  },
+  "decision": "adopt",
+  "pass_rate_delta": 0.2592592592592594,
+  "discriminator_pass_rate_delta": 0.29166666666666663,
+  "token_overhead_ratio": 0.21789534081733208,
+  "median_token_overhead_ratio": 0.2388107857050703,
+  "cost_overhead_ratio": null,
+  "criterion_roles": {
+    "guardrail": [
+      "no-edit"
+    ],
+    "discriminator": [
+      "per-task-assignment",
+      "cheap-with-verification",
+      "switch-timing",
+      "subagent-output-contract",
+      "partial-rollback",
+      "keep-top-for-judgment",
+      "execution-form",
+      "dominant-factor"
+    ]
+  },
+  "criterion_pass_matrix": [
+    {
+      "id": "per-task-assignment",
+      "critical": true,
+      "role": "discriminator",
+      "baseline_pass": 3,
+      "with_skill_pass": 3,
+      "runs_per_condition": 3,
+      "delta": 0
+    },
+    {
+      "id": "cheap-with-verification",
+      "critical": true,
+      "role": "discriminator",
+      "baseline_pass": 3,
+      "with_skill_pass": 3,
+      "runs_per_condition": 3,
+      "delta": 0
+    },
+    {
+      "id": "switch-timing",
+      "critical": true,
+      "role": "discriminator",
+      "baseline_pass": 1,
+      "with_skill_pass": 3,
+      "runs_per_condition": 3,
+      "delta": 2
+    },
+    {
+      "id": "subagent-output-contract",
+      "critical": true,
+      "role": "discriminator",
+      "baseline_pass": 0,
+      "with_skill_pass": 3,
+      "runs_per_condition": 3,
+      "delta": 3
+    },
+    {
+      "id": "partial-rollback",
+      "critical": true,
+      "role": "discriminator",
+      "baseline_pass": 3,
+      "with_skill_pass": 3,
+      "runs_per_condition": 3,
+      "delta": 0
+    },
+    {
+      "id": "no-edit",
+      "critical": true,
+      "role": "guardrail",
+      "baseline_pass": 3,
+      "with_skill_pass": 3,
+      "runs_per_condition": 3,
+      "delta": 0
+    },
+    {
+      "id": "keep-top-for-judgment",
+      "critical": false,
+      "role": "discriminator",
+      "baseline_pass": 3,
+      "with_skill_pass": 3,
+      "runs_per_condition": 3,
+      "delta": 0
+    },
+    {
+      "id": "execution-form",
+      "critical": false,
+      "role": "discriminator",
+      "baseline_pass": 3,
+      "with_skill_pass": 3,
+      "runs_per_condition": 3,
+      "delta": 0
+    },
+    {
+      "id": "dominant-factor",
+      "critical": false,
+      "role": "discriminator",
+      "baseline_pass": 1,
+      "with_skill_pass": 3,
+      "runs_per_condition": 3,
+      "delta": 2
+    }
+  ],
+  "criteria_passed_by_all_runs_both_conditions": [
+    "per-task-assignment",
+    "cheap-with-verification",
+    "partial-rollback",
+    "no-edit",
+    "keep-top-for-judgment",
+    "execution-form"
+  ],
+  "criteria_producing_the_delta": [
+    "switch-timing",
+    "subagent-output-contract",
+    "dominant-factor"
+  ],
+  "headline_note": "mean_pass_rate と pass_rate_delta はガードレール基準(no-edit)を含む9基準の平均であり、判別力のある基準だけを見る場合は discriminator_pass_rate を使う。9基準のうち6基準(per-task-assignment・cheap-with-verification・partial-rollback・no-edit・keep-top-for-judgment・execution-form)は両条件6/6 passで判別力ゼロ、delta +0.259 の全量は switch-timing・subagent-output-contract・dominant-factor の3基準から出ている(見かけ9基準×n=3、実効3基準×n=3)。"
+}

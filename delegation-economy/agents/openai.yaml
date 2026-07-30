@@ -1,0 +1,4 @@
+interface:
+  display_name: "Delegation Economics"
+  short_description: "Assign model tiers and design cost-efficient delegation and parallelization"
+  default_prompt: "Use $delegation-economy to design the model-tier assignments, delegation setup, and counter-metrics for these recurring tasks."

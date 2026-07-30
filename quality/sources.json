@@ -175,5 +175,193 @@
     "claims": [
       "llms.txt is a proposal and should be adopted only when target consumers and maintenance value are identified."
     ]
+  },
+  {
+    "id": "claude-pricing",
+    "title": "Anthropic Pricing",
+    "url": "https://platform.claude.com/docs/en/about-claude/pricing.md",
+    "status": "official",
+    "published_at": "living",
+    "accessed_at": "2026-07-30",
+    "review_due": "2026-09-15",
+    "applies_to": ["context-economy", "delegation-economy", "llm-cost-observability"],
+    "claims": [
+      "Per-model list prices ($/MTok input/output): Fable 5 $10/$50, Opus 5-series $5/$25, Sonnet 5 $2/$10 (introductory), Sonnet 4.6 $3/$15, Haiku 4.5 $1/$5.",
+      "Prompt cache writes cost 1.25x (5-minute TTL) or 2x (1-hour TTL) of the base input price and cache reads cost 0.1x, with multipliers stacking multiplicatively with Batch discounts.",
+      "The Batch API is 0.5x on both input and output and stacks with cache multipliers (e.g. Opus 5 Batch + cache read = $0.25/MTok).",
+      "Output price is roughly 5x input price, and thinking tokens are billed at the output rate.",
+      "Sonnet 5 introductory pricing ($2/$10 per MTok) ends on 2026-08-31 and reverts to $3/$15.",
+      "Claude 4.7 and later models (Opus 4.7+, Sonnet 5, Fable 5, and so on) use a newer tokenizer that yields roughly 30% more tokens for the same text, while Claude Sonnet 4.6 and earlier models keep the previous tokenizer, so unit prices alone must not be used for cross-model cost comparison."
+    ]
+  },
+  {
+    "id": "claude-batch-processing",
+    "title": "Message Batches API: Batch processing",
+    "url": "https://platform.claude.com/docs/en/build-with-claude/batch-processing",
+    "status": "official",
+    "published_at": "living",
+    "accessed_at": "2026-07-31",
+    "review_due": "2026-10-30",
+    "applies_to": ["delegation-economy"],
+    "claims": [
+      "Most batches complete within 1 hour; results become available when all messages complete or after 24 hours, whichever comes first, and batches expire if processing does not complete within 24 hours (expired requests are not billed).",
+      "Batch results are available for 29 days after creation.",
+      "The Message Batches API reduces costs by 50%: all usage is charged at 50% of the standard API prices, covering input tokens, output tokens and special tokens."
+    ]
+  },
+  {
+    "id": "claude-api-prompt-caching",
+    "title": "Prompt caching (Claude API)",
+    "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-caching.md",
+    "status": "official",
+    "published_at": "living",
+    "accessed_at": "2026-07-30",
+    "review_due": "2026-10-30",
+    "applies_to": ["context-economy"],
+    "claims": [
+      "Caching requires an exact prefix match, supports at most 4 cache breakpoints, and looks back only 20 blocks for previous cache entries.",
+      "Minimum cacheable prompt length varies non-monotonically by model from 512 to 4,096 tokens, and shorter prompts are silently not cached without an error."
+    ]
+  },
+  {
+    "id": "claude-code-prompt-caching",
+    "title": "Claude Code: Prompt caching behavior",
+    "url": "https://code.claude.com/docs/en/prompt-caching",
+    "status": "official",
+    "published_at": "living",
+    "accessed_at": "2026-07-30",
+    "review_due": "2026-10-30",
+    "applies_to": ["context-economy", "delegation-economy", "prompt-economy", "llm-cost-observability"],
+    "claims": [
+      "Mid-session model, effort, or fast-mode changes and tool-definition changes (MCP connect/disconnect, plugins, bare-name deny rules) invalidate the full cached prefix, while file edits, permission-mode switches, skill invocations, subagent launches, and /rewind do not.",
+      "Caches are per-model, so a mid-session model switch loses the entire cache; switch at session start or right after /clear.",
+      "Cache TTL depends on authentication method (subscription: 1 hour, downgraded to 5 minutes while consuming usage credits; API key/Bedrock/Vertex: 5 minutes unless ENABLE_PROMPT_CACHING_1H=1), and cache scope is effectively machine plus working directory.",
+      "Mid-session CLAUDE.md edits neither break the cache nor take effect until the next /clear, /compact, or restart.",
+      "/rewind returns to an already-cached prefix and is cheaper than /compact, whose summarization request reads the whole conversation; plan mode and skill invocations append to the conversation tail and carry no cache penalty by themselves, except that configurations switching models on entering plan mode (e.g. opusplan) invalidate the whole cache on every entry and exit because caches are per-model.",
+      "Subagents run with independent context and their own cache, so the first call starts cache-cold and is fixed to the 5-minute TTL even on subscription (fork exceptionally reads the parent cache).",
+      "Returning to a long session after idle or an upgrade can make the first request the most expensive of the session."
+    ]
+  },
+  {
+    "id": "claude-code-costs",
+    "title": "Claude Code: Manage costs effectively",
+    "url": "https://code.claude.com/docs/en/costs",
+    "status": "official",
+    "published_at": "living",
+    "accessed_at": "2026-07-30",
+    "review_due": "2026-10-30",
+    "applies_to": ["context-economy", "delegation-economy", "prompt-economy", "llm-cost-observability"],
+    "claims": [
+      "Claude Code resends the full history on every request, so a one-line question in a long-open session bills the whole conversation.",
+      "Unexpectedly high bills usually reduce to uncleared long sessions or Opus left as the default model; Sonnet handles most coding while Opus is reserved for complex architecture decisions and multi-step reasoning.",
+      "Vague requests like 'improve this codebase' trigger wide scans, while requests naming target files and functions complete with minimal file reads; hooks can pre-filter huge outputs down to the relevant lines.",
+      "MCP tool definitions are deferred by default, and CLIs like gh are more context-efficient than MCP servers.",
+      "Agent teams consume about 7x the tokens of a standard session in plan mode; assign teammates to Sonnet, keep teams small, and shut them down when done.",
+      "/usage shows per-session model breakdowns and warns with reduction tips when long context or cache misses exceed 10% of recent usage; background functionality typically consumes less than $0.04 per session.",
+      "Enterprise usage averages about $13 per developer per workday and 90% of users stay under $30/day.",
+      "Organizations manage per-user cost via the Claude Code workspace, workspace spend limits, and the Analytics API; cloud-provider setups (Bedrock/Vertex/Foundry) are outside the official dashboard.",
+      "OpenTelemetry export works on every setup and is the only option that streams per-user token and cost metrics into your own observability stack in near real time."
+    ]
+  },
+  {
+    "id": "claude-code-best-practices",
+    "title": "Claude Code: Best practices",
+    "url": "https://code.claude.com/docs/en/best-practices",
+    "status": "official",
+    "published_at": "living",
+    "accessed_at": "2026-07-30",
+    "review_due": "2026-10-30",
+    "applies_to": ["context-economy", "delegation-economy", "prompt-economy"],
+    "claims": [
+      "After correcting the same problem twice, clearing the session and restarting with an improved prompt almost always beats continuing the long session, because the context is polluted with failed approaches.",
+      "Kitchen-sink sessions and unscoped research are named failure patterns, and LLM performance degrades as the context window fills.",
+      "Including verification means (pass/fail checks) in the request is required, otherwise the human becomes the verification loop and every miss waits for human discovery.",
+      "A wrong direction can be stopped immediately with Esc and redirected with context preserved; tasks whose diff can be described in one sentence should skip plan mode, while larger features should have the agent interview the user to write a SPEC.md and implement in a fresh session.",
+      "Headless fan-out should refine the prompt on the first 2-3 files' failures before running the full batch.",
+      "Delegating research, post-implementation verification, and adversarial review to fresh-context subagents is officially recommended."
+    ]
+  },
+  {
+    "id": "claude-code-context-window",
+    "title": "Claude Code: Context windows",
+    "url": "https://code.claude.com/docs/en/context-window",
+    "status": "official",
+    "published_at": "living",
+    "accessed_at": "2026-07-30",
+    "review_due": "2026-10-30",
+    "applies_to": ["context-economy"],
+    "claims": [
+      "After /compact, the system prompt, project-root CLAUDE.md, and auto memory are re-injected, while path-scoped rules and nested CLAUDE.md files are dropped until their files are re-read.",
+      "Invoked skill bodies are re-injected up to 5,000 tokens per skill and 25,000 tokens in total."
+    ]
+  },
+  {
+    "id": "claude-code-sub-agents",
+    "title": "Claude Code: Sub-agents",
+    "url": "https://code.claude.com/docs/en/sub-agents",
+    "status": "official",
+    "published_at": "living",
+    "accessed_at": "2026-07-30",
+    "review_due": "2026-10-30",
+    "applies_to": ["delegation-economy", "llm-cost-observability"],
+    "claims": [
+      "Subagents run with their own context window and their own cache, returning only summaries to the parent conversation.",
+      "The subagent frontmatter model field accepts haiku/sonnet/opus/fable/inherit, and routing tasks to cheaper models this way is an official cost-control use case.",
+      "Since v2.1.198 the built-in Explore subagent inherits the main conversation's model instead of always running on Haiku, capped at Opus on the Claude API (so Explore never runs on a more expensive model than the one already chosen for the session) and uncapped on other providers such as Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry and Claude Platform on AWS, where it inherits the main conversation's model directly; keeping it cheap requires a user or project subagent named Explore with an explicit model: haiku, which overrides the built-in."
+    ]
+  },
+  {
+    "id": "claude-code-monitoring-usage",
+    "title": "Claude Code: Monitoring usage (OpenTelemetry)",
+    "url": "https://code.claude.com/docs/en/monitoring-usage",
+    "status": "official",
+    "published_at": "living",
+    "accessed_at": "2026-07-30",
+    "review_due": "2026-10-30",
+    "applies_to": ["llm-cost-observability"],
+    "claims": [
+      "Claude Code exports OTel metrics including claude_code.token.usage and claude_code.cost.usage (USD) with user.id, organization.id, model, and session.id attributes.",
+      "OTEL_RESOURCE_ATTRIBUTES (e.g. department, cost_center) enables per-team cost attribution, and managed settings can enforce telemetry org-wide."
+    ]
+  },
+  {
+    "id": "metsuke-cost-measurements",
+    "title": "metsuke: measured Claude Code cost behavior-change system",
+    "url": "https://github.com/taku7777777/metsuke",
+    "status": "industry-research",
+    "published_at": "living",
+    "accessed_at": "2026-07-30",
+    "review_due": "2026-10-30",
+    "applies_to": ["context-economy", "delegation-economy", "prompt-economy", "llm-cost-observability"],
+    "claims": [
+      "Measured cache rewrite rates were 2.6% for gaps under 5 minutes versus 73.0% for gaps over 60 minutes (334 requests across 9 sessions, measured on a 1-hour-TTL lane), so idle-time TTL expiry, not conversation length, dominates rebuild cost; the 60-minute boundary is that environment's TTL, not a universal threshold.",
+      "A 37-character instruction cost $4.30, of which 99% was a 425,826-token cache rewrite (17x the $0.2480 median per-request cost across that same session's 105 requests including subagents; a request median, not a prompt median), showing prompt cost is set by prefix length, not input length; prompt cost is read as p50/p90/p99, not averages (healthy p50<=$1 / p90<=$8, runaway guard at $5 cumulative per prompt).",
+      "A 300-token resident CLAUDE.md adds about +0.15% to the average prefix, a single large-skill load costs about 780k effective tokens, and compaction shrank cache reads from 224k to 20k while generating new writes and dropping decision structure.",
+      "Across 34,000+ requests the top model (Fable 5) accounted for 53% of total spend, so model selection outweighs context hygiene and cache management by an order of magnitude.",
+      "Time-window attribution misassigned about 1/4 of agent-related cost (about 5% of total) and inverted high-cost prompt rankings; causal attribution assigns subagent cost to the originating human instruction, and harness-injected pseudo-prompts were about 8% of prompts but about 20% of cost until folded back.",
+      "External delegation (e.g. Codex) escapes the measurement scope, and without an AGENTS.md at the delegate, repository exploration repeats on every delegation while the cost never appears in the local ledger.",
+      "Savings without counter-metrics (rework rate, escalation-back-to-top-model rate) cannot detect over-optimization; high-quality tasks may stay expensive, and cost reduction alone must not be the KPI.",
+      "Operational thresholds: budget stages 50/80/100% with no auto-block at 100%, nudge conversion below 10% for 2 weeks triggers rule revision (never auto-mute), TTL measures are deprioritized under $5/day or 10% of cache writes, and the measurement system itself is retired after 2 consecutive quarters of negative ROI.",
+      "Early interruption of drifting tasks shows up as a reduced p99 tail and a lower interrupted rate."
+    ]
+  },
+  {
+    "id": "claude-code-local-transcripts",
+    "title": "Claude Code local session transcripts: observed layout and fields (metsuke)",
+    "url": "https://github.com/taku7777777/metsuke",
+    "status": "industry-research",
+    "published_at": "living",
+    "accessed_at": "2026-07-31",
+    "review_due": "2026-10-31",
+    "applies_to": ["context-economy", "delegation-economy", "llm-cost-observability"],
+    "claims": [
+      "Session transcripts are JSONL at ~/.claude/projects/<encoded-cwd>/<session-id>.jsonl, with subagent runs in separate files under <session-id>/subagents/ alongside agent-<id>.meta.json (agentType, spawnDepth, toolUseId); workflow-spawned agents sit one level deeper under <session-id>/subagents/workflows/wf_<id>/ next to a journal.jsonl (532 of 1,059 observed files), and directory depth does not encode spawn nesting, which is carried by meta.json's spawnDepth (all 84 observed spawnDepth>=2 runs were stored flat directly under subagents/). This layout is an observation on Claude Code v2.1.215-2.1.220 (macOS, 2026-07), not a published specification, so it can change between versions.",
+      "Billable records are .type==\"assistant\" and carry .timestamp (ISO8601, UTC), .message.model, .message.usage.{input_tokens, output_tokens, cache_creation_input_tokens, cache_read_input_tokens} and .message.usage.cache_creation.{ephemeral_1h_input_tokens, ephemeral_5m_input_tokens}, so cost composition, idle gaps, model-switch events and session startup cost are all derivable with jq alone, without any measurement infrastructure.",
+      ".message.model also takes the non-model value <synthetic> for harness-generated responses, which must be excluded or model composition and request-count denominators are wrong.",
+      "Counting human prompts by promptSource==\"typed\" undercounts substantially because sdk, typed, absent and queued values coexist (one environment measured 2,039 / 1,565 / 791 / 30, i.e. 2.83x with sdk included and 1.52x without); the ratio depends heavily on how much headless/claude -p usage the environment has, so it must be measured per environment. The working filter excludes promptSource==\"system\", isMeta and isCompactSummary, and therefore counts sdk-sourced prompts unless they are excluded explicitly.",
+      "Per-prompt attribution of subagent cost is reachable by matching agent-<id>.meta.json toolUseId to the tool_use id in the transcript of the conversation that spawned it (the main session jsonl when spawnDepth==1, the parent agent's jsonl when spawnDepth>=2, resolved via parentAgentId when present - observed on only 18 of 1,020 metas - otherwise by scanning the session's agent-*.jsonl files), then walking parentUuid back to the first user record passing the human-prompt filter rather than promptSource==\"typed\" alone. Coverage is partial: roughly half of the meta.json files (493 of 1,020: 406 workflow-subagent and 87 general-purpose) carry no toolUseId at all, so that portion must be reported as a measurement gap instead of being silently counted as zero. This requires a script rather than a one-liner.",
+      "Transcripts contain full prompt text, file contents and command output, so raw records need redaction before sharing; this is a stronger privacy constraint than OpenTelemetry export, which carries token counts only.",
+      "Cross-user team aggregation, near-real-time shared views, cloud-provider (Bedrock/Vertex) billing reconciliation, intervention conversion and rework rates cannot be obtained from transcripts, which marks the boundary where OpenTelemetry export or deliberate human record-keeping becomes necessary."
+    ]
   }
 ]

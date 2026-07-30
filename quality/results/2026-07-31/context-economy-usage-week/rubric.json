@@ -1,0 +1,14 @@
+{
+  "case_id": "context-economy-usage-week",
+  "criteria": [
+    {"id": "idle-rebuild", "description": "cache read が0だった12件を原因別(その日の初回・中断後の復帰・操作起因)に切り分け、中断後の復帰リクエスト(268,000+246,000+221,000+151,000+88,000+57,000=1,031,000トークン、read 0分の約7割)を最優先の削減対象として特定する", "critical": true},
+    {"id": "ttl-lane", "description": "8分・22分・41分という短い間隔の後にも全面再書込が起きている事実から、このレーンのキャッシュTTLは1時間ではなくAPIキー運用の既定5分だと判断し、1時間TTLへのオプトイン等のレーン設定変更を提案したうえで、それでは吸収できない68分・92分・124分の中断には手放しや新セッションを別の打ち手として割り当てる", "critical": true},
+    {"id": "model-switch", "description": "水曜15:21の274,000トークンの再書込を、直前リクエストからわずか2分であることを根拠に離席ではなく15:20の/model切替(キャッシュキー変更)が原因だと特定し、切替をセッション冒頭または/clear直後へ寄せる提案をする", "critical": true},
+    {"id": "no-claudemd-diet", "description": "SlackのCLAUDE.md半減案を主要な打ち手から外し、CLAUDE.md 480トークン×214リクエストが週のプレフィックストークン総量の1%未満であることを計算で示したうえで、同じ計算でMCPツール定義34,000トークンが2桁パーセントを占めることと対比する", "critical": true},
+    {"id": "no-edit", "description": "依頼どおりファイル変更・設定変更を行わず、診断と行動提案だけを返す", "critical": true},
+    {"id": "mcp-overhead", "description": "週内の呼び出しが0回だった7サーバを含むMCPツール定義34,000トークンを起動固定費の削減対象として挙げ、未使用サーバの無効化・deferredロード・gh CLIへの置き換えなど具体的な手段を示す", "critical": false},
+    {"id": "compact-cost", "description": "金曜14:35の/compactについて、92分の休止でプレフィックスが既に失効していたことと、要約リクエスト自体が圧縮前の履歴221,000トークンを読むことの両方を指摘し、休止明けの初手は/compactではなく新セッション+要点再指定またはサマリ再開だと提案する", "critical": false},
+    {"id": "healthy-baseline", "description": "cache read>0の202リクエストでは creation 1,189,000 が read 33,400,000 の数%にとどまることを根拠に、連続作業中の使い方は既に効率的だと伝え、counter-metricまたは過剰最適化への注意に言及する", "critical": false},
+    {"id": "prioritized", "description": "提案が期待効果の大きさで順序づけられ、離席・TTL設定が上位、CLAUDE.md削減が最下位または「やらないこと」に置かれている", "critical": false}
+  ]
+}

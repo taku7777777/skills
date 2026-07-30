@@ -7,7 +7,7 @@ description: 運用・可観測性・インシデント対応を設計・整備�
 
 Google SRE Book / SRE Workbook(SLI/SLO・エラーバジェット・バーンレートアラート・ポストモーテム文化)、Charity Majors ら『Observability Engineering』(可観測性とモニタリングの区別)、Michael Nygard『Release It!』(運用への引き渡し・透明性)、OpenTelemetry(計装の標準)、PagerDuty のインシデント対応プラクティス(役割分担・severity)の知見を統合した運用設計プロセス。
 
-領分の境界: サーキットブレーカー等の安定性パターンを含むアーキテクチャ設計自体は `arch-security-design`、デプロイ・リリース時の安全性は `cicd-release`、障害の原因調査の進め方は `systematic-debugging` の領分。本スキルは「観測できる状態を作り、障害に組織として対応する仕組み」を扱う。
+領分の境界: サーキットブレーカー等の安定性パターンを含むアーキテクチャ設計自体は `arch-security-design`、デプロイ・リリース時の安全性は `cicd-release`、障害の原因調査の進め方は `systematic-debugging` の領分。開発者・チーム自身のLLM利用費の計測・介入設計は `llm-cost-observability` の領分(本スキルが扱うのは本番システムの可観測性)。本スキルは「観測できる状態を作り、障害に組織として対応する仕組み」を扱う。
 
 ## 大原則
 

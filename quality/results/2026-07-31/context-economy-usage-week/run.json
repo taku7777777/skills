@@ -1,0 +1,28 @@
+{
+  "protocol_version": 1,
+  "case_id": "context-economy-usage-week",
+  "skill": "context-economy",
+  "date": "2026-07-31",
+  "executor_model": "claude-opus-5",
+  "grader_model": "claude-opus-5",
+  "conditions": [
+    "baseline",
+    "with-skill"
+  ],
+  "repetitions": 3,
+  "isolation": {
+    "executor": "executorには run-packets の task.md のみを提示。with-skill条件は skill-snapshot/ の SKILL.md と references のみを追加提示。両条件ともスキルリポジトリ(rubric・evals.md・過去出力を含む)の読み取りを禁止した。",
+    "grader": "採点者には条件を伏せた匿名タグ(A-F)で3出力ずつを提示し、rubricと元タスクのみを参照させた。採点者はスキル本文を読んでいない。"
+  },
+  "metrics_source": "tokens と latency_ms は各実行エージェントのtranscript(usage合計・最初と最後のtimestamp差)から実測。cost_usd はプロバイダが実額を公開しないため null。tokens の定義は実行エージェントのセッション全体の usage 合計(input + output + cache write + cache read)であり、キャッシュ読取を含むためターン数に対して超線形に増える。成果物1本の生成コストではないので、条件間の桁の比較にのみ使い、絶対値を単価換算しない。no-edit の判定は現状 executor transcript ではなく成果物の記述だけに基づく。恒久策として、以後のケースでは executor transcript の Edit/Write/NotebookEdit と書き込み系 Bash 呼び出しを列挙して成果物の申告と突き合わせ、その照合結果を judgments に残す。",
+  "limitations": [
+    "実行と採点が同一モデル(claude-opus-5)である。条件は匿名タグで伏せたが、採点者が実行者と同系モデルであることは盲検化の限界であり、同系の出力を読みやすい・妥当だと評価しやすい方向のモデル固有バイアスを除去できていない。2026-07-20 の impl-review-coupon-pr は executor が gpt-5.6-sol(grader モデルは未記録)であり、採点プロトコルの世代が異なる。",
+    "6出力を2バッチ(3出力ずつ)に分けて採点したため、バッチ間で厳格度が一様である保証がない。バッチは条件バランスされていない(バッチ1 = with-skill 1 / baseline 2、バッチ2 = with-skill 2 / baseline 1)。",
+    "no-edit は成果物の記述のみに基づく自己申告判定であり、executor transcript の変更操作は照合していない。",
+    "with-skill 出力はスキルが指定する成果物フォーマット(counter-metrics表・「やらないこと」節など)に従うため、書式から条件が推測されうる残存リスクがある。",
+    "本ランで使用した rubric と fixture はサイクル3で改訂された。当時の版は本ディレクトリの rubric.json と task.md に保存されており、現行の quality/graders/context-economy-usage-week.json と quality/fixtures/context-economy/ では本結果は再現しない。改訂の主眼は ttl-lane を「1時間TTLへのオプトインを提案すること」の要求から「書込単価と救済可能ギャップの損益分岐に基づく採否判断(却下という結論も可)」へ緩めた点で、レビューは with-skill 側 critical失敗3件のうち2件(および baseline 側4件のうち3件)がこの基準の欠陥を測っていたと指摘している。再採点は未実施であり、summary.json と README が掲げる件数はいずれも改訂前 rubric に対する値である。",
+    "反復3回は粗い退行の検出用であり統計的有意性の主張ではない",
+    "評価対象は2026-07-31のサイクル2改善**前**のスナップショット(skill-snapshot/ に保存)。以降の編集は未評価",
+    "本ラン日(2026-07-31)に実施したのは2件。他日実施分を含めた完了ケースは3件。全22 task cases に対しリポジトリ全体の adoption_ready は false のまま"
+  ]
+}

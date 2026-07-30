@@ -1,0 +1,27 @@
+{
+  "protocol_version": 1,
+  "case_id": "delegation-task-portfolio",
+  "skill": "delegation-economy",
+  "date": "2026-07-31",
+  "executor_model": "claude-opus-5",
+  "grader_model": "claude-opus-5",
+  "conditions": [
+    "baseline",
+    "with-skill"
+  ],
+  "repetitions": 3,
+  "isolation": {
+    "executor": "executorには run-packets の task.md のみを提示。with-skill条件は skill-snapshot/ の SKILL.md と references のみを追加提示。両条件ともスキルリポジトリ(rubric・evals.md・過去出力を含む)の読み取りを禁止した。",
+    "grader": "採点者には条件を伏せた匿名タグ(A-F)で3出力ずつを提示し、rubricと元タスクのみを参照させた。採点者はスキル本文を読んでいない。"
+  },
+  "metrics_source": "tokens と latency_ms は各実行エージェントのtranscript(usage合計・最初と最後のtimestamp差)から実測。cost_usd はプロバイダが実額を公開しないため null。tokens の定義は実行エージェントのセッション全体の usage 合計(input + output + cache write + cache read)であり、キャッシュ読取を含むためターン数に対して超線形に増える。成果物1本の生成コストではないので、条件間の桁の比較にのみ使い、絶対値を単価換算しない。no-edit の判定は現状 executor transcript ではなく成果物の記述だけに基づく。恒久策として、以後のケースでは executor transcript の Edit/Write/NotebookEdit と書き込み系 Bash 呼び出しを列挙して成果物の申告と突き合わせ、その照合結果を judgments に残す。",
+  "limitations": [
+    "実行と採点が同一モデル(claude-opus-5)である。条件は匿名タグで伏せたが、採点者が実行者と同系モデルであることは盲検化の限界であり、同系の出力を読みやすい・妥当だと評価しやすい方向のモデル固有バイアスを除去できていない。2026-07-20 の impl-review-coupon-pr は executor が gpt-5.6-sol(grader モデルは未記録)であり、採点プロトコルの世代が異なる。",
+    "no-edit は成果物の記述のみに基づく自己申告判定であり、executor transcript の変更操作は照合していない。",
+    "with-skill 出力はスキルが指定する成果物フォーマットに従うため、書式から条件が推測されうる残存リスクがある。",
+    "この結果は9基準版rubric(本ディレクトリの rubric.json)に対する値である。採点後に現行grader(quality/graders/delegation-task-portfolio.json)へ green-provenance を追加(9→10基準)し、さらに dominant-factor の文言を「Fable 5が96%というモデル構成比を主要因として特定」からタスク別分解も認める形へ緩和したため、現行graderでは with-skill 9/9・critical失敗0・pass_rate_delta +0.259 は再現しない。追加した green-provenance は with-skill 3実行が #2/#4/#7 に付けた「テストgreen+型green」の通過条件と正面から当たるため、再採点すれば満点は崩れうる。再採点は未実施。",
+    "反復3回は粗い退行の検出用であり統計的有意性の主張ではない",
+    "評価対象は2026-07-31のサイクル2改善**前**のスナップショット(skill-snapshot/ に保存)。以降の編集は未評価",
+    "本ラン日(2026-07-31)に実施したのは2件。他日実施分を含めた完了ケースは3件。全22 task cases に対しリポジトリ全体の adoption_ready は false のまま"
+  ]
+}

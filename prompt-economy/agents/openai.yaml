@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prompt Economy"
+  short_description: "Design one-shot task briefs with built-in verification and early abort rules"
+  default_prompt: "Use $prompt-economy to rewrite this task request into a one-shot brief with acceptance criteria, verification commands, scope constraints, and abort rules."

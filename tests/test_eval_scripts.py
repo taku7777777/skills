@@ -47,6 +47,60 @@ class RepositoryValidationTests(unittest.TestCase):
         self.assertTrue(validate_skills.is_evaluation_result_artifact(root, result))
         self.assertFalse(validate_skills.is_evaluation_result_artifact(root, regular_doc))
 
+    def validate_rubric_drift(
+        self,
+        archived_criteria: list[dict[str, object]],
+        current_criteria: list[dict[str, object]],
+    ) -> validate_skills.Validation:
+        tempdir = tempfile.TemporaryDirectory(prefix="rubric-drift-test-")
+        self.addCleanup(tempdir.cleanup)
+        root = Path(tempdir.name)
+        archived_path = (
+            root
+            / "quality"
+            / "results"
+            / "2026-07-20"
+            / "example-case"
+            / "final-regression"
+            / "rubric.json"
+        )
+        current_path = root / "quality" / "graders" / "example-case.json"
+        archived_path.parent.mkdir(parents=True)
+        current_path.parent.mkdir(parents=True)
+        archived_path.write_text(
+            json.dumps({"case_id": "example-case", "criteria": archived_criteria}),
+            encoding="utf-8",
+        )
+        current_path.write_text(
+            json.dumps({"case_id": "example-case", "criteria": current_criteria}),
+            encoding="utf-8",
+        )
+        validation = validate_skills.Validation()
+        validate_skills.validate_result_rubric_drift(root, validation)
+        return validation
+
+    def test_result_rubric_drift_reports_criterion_id_changes_recursively(self) -> None:
+        validation = self.validate_rubric_drift(
+            [{"id": "removed", "description": "old", "critical": False}],
+            [{"id": "added", "description": "new", "critical": False}],
+        )
+        self.assertEqual(len(validation.warnings), 1)
+        self.assertIn("criterion ids added ['added'], removed ['removed']", validation.warnings[0])
+
+    def test_result_rubric_drift_reports_description_and_critical_changes(self) -> None:
+        validation = self.validate_rubric_drift(
+            [{"id": "shared", "description": "old", "critical": False}],
+            [{"id": "shared", "description": "new", "critical": True}],
+        )
+        self.assertEqual(len(validation.warnings), 1)
+        self.assertIn("criterion descriptions changed ['shared']", validation.warnings[0])
+        self.assertIn("criterion critical flags changed ['shared']", validation.warnings[0])
+
+    def test_result_rubric_drift_ignores_matching_rubrics(self) -> None:
+        criteria = [{"id": "shared", "description": "same", "critical": True}]
+        validation = self.validate_rubric_drift(criteria, criteria)
+        self.assertEqual(validation.warnings, [])
+
 
 class TaskEvaluationTests(unittest.TestCase):
     def setUp(self) -> None:

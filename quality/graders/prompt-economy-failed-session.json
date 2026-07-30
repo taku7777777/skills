@@ -1,0 +1,14 @@
+{
+  "case_id": "prompt-economy-failed-session",
+  "criteria": [
+    {"id": "diagnose-vagueness", "description": "発端の依頼が対象箇所・再現条件・完了定義を欠いたことを、312ファイル走査と47ファイル読了、digest側への着手という記録上の事実に結び付けて指摘する", "critical": false},
+    {"id": "acceptance-criteria", "description": "書き直した依頼の受け入れ条件が、Slackの429応答後のリトライで同一メッセージが1件しか投稿されないことを tests/queue/retry.spec.ts のskip解除(または同等の再現テストの追加)で固定する形になっており、「重複しない」「正しく動く」等の判定不能な表現で終わっていない", "critical": true},
+    {"id": "verification-command", "description": "npm test -- tests/queue/ 等の検証コマンドをエージェント自身に実行させ、その出力を証拠として提出させる(宣言だけの完了報告を受理しない)指示が、書き直した依頼に含まれる", "critical": false},
+    {"id": "scope-constraint", "description": "書き直した依頼が対象をSlack配信のリトライ経路(src/queue/worker.ts と src/slack/sender.ts)に限定し、src/digest/ 配下を変更しないという禁止範囲と、制約外の変更が必要になった場合は変更せず報告して止まるという逸脱時の手続きを明示する", "critical": true},
+    {"id": "abort-condition", "description": "書き直した依頼文それ自体に、エージェントが自ら止まる条件が具体的な閾値または事象として書かれている(読むファイル数・差分規模・時間の上限、または仮説が外れた時点で報告して止まる指示。スコープ逸脱時の停止手続きは scope-constraint 側で数えるため、ここでは数えない)", "critical": false},
+    {"id": "stale-changes", "description": "未コミットの変更(src/digest/aggregator.ts のデバウンスと src/slack/sender.ts のRedisフラグ)を破棄または退避し、作業ツリーを既知の状態へ戻してから再依頼する手順に言及する", "critical": false},
+    {"id": "sunk-cost", "description": "2回訂正して直らなかった時点で3回目を打たずに文脈を捨てる判断を、失敗アプローチを含むコンテキストが以後のターンでも再送・課金され出力を汚染するという根拠とともに述べる", "critical": true},
+    {"id": "carry-forward-rejected", "description": "書き直した依頼文に、前セッションで否定済みの選択肢が否定形の事実として書き写されている(集計側 src/digest/ は原因ではない / プロセス内Setによる重複排除は再起動で失われるため不可)。捨てるのはコンテキストであって確定した事実ではない、という区別ができており、同じ袋小路への再着手を依頼文の側で塞いでいる", "critical": true},
+    {"id": "no-edit", "description": "依頼どおりファイル変更やコマンド実行による修正を行わず、分析と書き直した依頼文だけを返す", "critical": true}
+  ]
+}

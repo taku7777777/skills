@@ -1,0 +1,4 @@
+interface:
+  display_name: "Context Economy"
+  short_description: "Run coding-agent sessions, context, and prompt caches economically"
+  default_prompt: "Use $context-economy to diagnose session, context, and cache waste in this workflow and propose concrete behavior changes."

@@ -1,0 +1,157 @@
+{
+  "case_id": "context-economy-usage-week",
+  "skill": "context-economy",
+  "date": "2026-07-31",
+  "protocol_version": 1,
+  "rubric_of_record": "本ディレクトリの rubric.json(9基準)。現行 quality/graders/context-economy-usage-week.json は ttl-lane / no-claudemd-diet / compact-cost / mcp-overhead / healthy-baseline / prioritized / no-edit の文言がサイクル3で改訂されており、本結果は現行graderでは再現しない(run.json の limitations 参照)。",
+  "baseline": {
+    "runs": 3,
+    "mean_pass_rate": 0.6666666666666666,
+    "critical_failures": 4,
+    "mean_tokens": 6269519.333333333,
+    "mean_latency_ms": 680966.3333333334,
+    "mean_cost_usd": null,
+    "tool_errors": 0,
+    "discriminator_pass_rate": 0.625,
+    "guardrail_pass_rate": 1.0,
+    "median_tokens": 5862461,
+    "tokens_range": [
+      3093778,
+      9852319
+    ]
+  },
+  "with-skill": {
+    "runs": 3,
+    "mean_pass_rate": 0.8888888888888888,
+    "critical_failures": 3,
+    "mean_tokens": 1169868.6666666667,
+    "mean_latency_ms": 700497.6666666666,
+    "mean_cost_usd": null,
+    "tool_errors": 0,
+    "discriminator_pass_rate": 0.875,
+    "guardrail_pass_rate": 1.0,
+    "median_tokens": 1235456,
+    "tokens_range": [
+      575751,
+      1698399
+    ]
+  },
+  "decision": "adopt",
+  "pass_rate_delta": 0.2222222222222222,
+  "discriminator_pass_rate_delta": 0.25,
+  "token_overhead_ratio": 0.18659622922714225,
+  "median_token_overhead_ratio": 0.2107401652650653,
+  "cost_overhead_ratio": null,
+  "criterion_roles": {
+    "guardrail": [
+      "no-edit"
+    ],
+    "discriminator": [
+      "idle-rebuild",
+      "ttl-lane",
+      "model-switch",
+      "no-claudemd-diet",
+      "mcp-overhead",
+      "compact-cost",
+      "healthy-baseline",
+      "prioritized"
+    ]
+  },
+  "criterion_pass_matrix": [
+    {
+      "id": "idle-rebuild",
+      "critical": true,
+      "role": "discriminator",
+      "baseline_pass": 3,
+      "with_skill_pass": 3,
+      "runs_per_condition": 3,
+      "delta": 0
+    },
+    {
+      "id": "ttl-lane",
+      "critical": true,
+      "role": "discriminator",
+      "baseline_pass": 0,
+      "with_skill_pass": 1,
+      "runs_per_condition": 3,
+      "delta": 1
+    },
+    {
+      "id": "model-switch",
+      "critical": true,
+      "role": "discriminator",
+      "baseline_pass": 3,
+      "with_skill_pass": 2,
+      "runs_per_condition": 3,
+      "delta": -1
+    },
+    {
+      "id": "no-claudemd-diet",
+      "critical": true,
+      "role": "discriminator",
+      "baseline_pass": 2,
+      "with_skill_pass": 3,
+      "runs_per_condition": 3,
+      "delta": 1
+    },
+    {
+      "id": "no-edit",
+      "critical": true,
+      "role": "guardrail",
+      "baseline_pass": 3,
+      "with_skill_pass": 3,
+      "runs_per_condition": 3,
+      "delta": 0
+    },
+    {
+      "id": "mcp-overhead",
+      "critical": false,
+      "role": "discriminator",
+      "baseline_pass": 3,
+      "with_skill_pass": 3,
+      "runs_per_condition": 3,
+      "delta": 0
+    },
+    {
+      "id": "compact-cost",
+      "critical": false,
+      "role": "discriminator",
+      "baseline_pass": 0,
+      "with_skill_pass": 3,
+      "runs_per_condition": 3,
+      "delta": 3
+    },
+    {
+      "id": "healthy-baseline",
+      "critical": false,
+      "role": "discriminator",
+      "baseline_pass": 1,
+      "with_skill_pass": 3,
+      "runs_per_condition": 3,
+      "delta": 2
+    },
+    {
+      "id": "prioritized",
+      "critical": false,
+      "role": "discriminator",
+      "baseline_pass": 3,
+      "with_skill_pass": 3,
+      "runs_per_condition": 3,
+      "delta": 0
+    }
+  ],
+  "criteria_passed_by_all_runs_both_conditions": [
+    "idle-rebuild",
+    "no-edit",
+    "mcp-overhead",
+    "prioritized"
+  ],
+  "criteria_producing_the_delta": [
+    "ttl-lane",
+    "model-switch",
+    "no-claudemd-diet",
+    "compact-cost",
+    "healthy-baseline"
+  ],
+  "headline_note": "mean_pass_rate と pass_rate_delta はガードレール基準(no-edit)を含む9基準の平均であり、判別力のある基準だけを見る場合は discriminator_pass_rate を使う。9基準のうち4基準(idle-rebuild・no-edit・mcp-overhead・prioritized)は両条件6/6 passで判別力ゼロ、実効的に動いたのは5基準×n=3。さらに ttl-lane の失敗はレビューが基準側の欠陥と判定しており、+0.222 を単独で引用しない。"
+}
